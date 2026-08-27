@@ -47,9 +47,9 @@ __webpack_require__.d(__webpack_exports__, {
 ;// CONCATENATED MODULE: ./web/resources/fluent-defaults.ts
 const FLUENT_DEFAULTS = {
     mode: "auto",
-    primary: "#0078d4",
-    dark_primary: "#4da6ff",
-    progressbar_font: "#2e2b60",
+    primary: "#f4511e",
+    dark_primary: "#ff7043",
+    progressbar_font: "#3d170c",
     dark_progressbar_font: "#d6d9e5",
     page_bg: "#fafafa",
     card_bg: "#ffffff",
@@ -203,7 +203,7 @@ let advanced_e = L.form;
 const registerAdvancedTab = (d)=>{
     d.tab("advanced", _("Advanced"), _("Adjust layout, typography, transition timing, shadows, and inject custom CSS variables or rules when the built-in controls are not enough."));
     {
-        let o = d.taboption("advanced", advanced_e.Value, "font_size", _("Base font size"), _("Sets the base interface font size in pixels. Most theme text scales from this value through the Fluent CSS variables. Recommended range: 12-18px."));
+        let o = d.taboption("advanced", advanced_e.Value, "font_size", _("Base font size"), _("Sets the base interface font size in pixels. Most theme text scales from this value through the theme CSS variables. Recommended range: 12-18px."));
         o.datatype = "range(12,18)", o.default = FLUENT_DEFAULTS.font_size, omitDefaultValue(o), o.placeholder = FLUENT_DEFAULTS.font_size;
     }
     {
@@ -215,7 +215,7 @@ const registerAdvancedTab = (d)=>{
         o.datatype = "range(40,96)", o.default = FLUENT_DEFAULTS.header_height, omitDefaultValue(o), o.placeholder = FLUENT_DEFAULTS.header_height;
     }
     {
-        let o = d.taboption("advanced", advanced_e.ListValue, "border_radius", _("Corner radius"), _("Controls the shared Fluent corner radius tokens used by cards, buttons, inputs, and related UI surfaces."));
+        let o = d.taboption("advanced", advanced_e.ListValue, "border_radius", _("Corner radius"), _("Controls the shared corner radius tokens used by cards, buttons, inputs, and related UI surfaces."));
         o.value("0", _("Square (0px)")), o.value("2", _("Small (2px)")), o.value("4", _("Medium (4px)")), o.value("6", _("Rounded (6px)")), o.value("8", _("Large (8px)")), o.value("12", _("Extra large (12px)")), o.default = FLUENT_DEFAULTS.border_radius, omitDefaultValue(o);
     }
     {
@@ -223,11 +223,11 @@ const registerAdvancedTab = (d)=>{
         o.value("none", _("None")), o.value("small", _("Small")), o.value("medium", _("Medium")), o.value("large", _("Large")), o.default = FLUENT_DEFAULTS.card_shadow, omitDefaultValue(o);
     }
     {
-        let o = d.taboption("advanced", advanced_e.ListValue, "transition_speed", _("Theme transition speed"), _("Controls the shared Fluent transition timing used by menu, header, and other theme animations."));
+        let o = d.taboption("advanced", advanced_e.ListValue, "transition_speed", _("Theme transition speed"), _("Controls the shared transition timing used by menu, header, and other theme animations."));
         o.value("fast", _("Fast")), o.value("normal", _("Normal")), o.value("slow", _("Slow")), o.value("none", _("Disabled")), o.default = FLUENT_DEFAULTS.transition_speed, omitDefaultValue(o);
     }
     {
-        let o = d.taboption("advanced", advanced_e.TextValue, "custom_css", _("Custom CSS"), _("Optional raw CSS injected into the Fluent header template. Use this for extra --fluent-* variable overrides or page-specific tweaks that are not exposed as dedicated options."));
+        let o = d.taboption("advanced", advanced_e.TextValue, "custom_css", _("Custom CSS"), _("Optional raw CSS injected into the theme header template. Use this for extra --fluent-* variable overrides or page-specific tweaks that are not exposed as dedicated options."));
         o.default = FLUENT_DEFAULTS.custom_css, omitDefaultValue(o), o.rmempty = !0, o.rows = 12, o.wrap = "off", o.placeholder = ":root {\n  --fluent-sidebar-width: 280px;\n  --fluent-card-shadow: none;\n}";
     }
 };
@@ -238,45 +238,45 @@ let colors_r = L.form;
 
 const registerColorsTab = (d)=>{
     d.tab("colors", _("Colors"));
-    let l = createModeSubtabs(d, "colors", "colors_mode_tabs");
+    let i = createModeSubtabs(d, "colors", "colors_mode_tabs");
     {
-        let o = l.taboption("light", colors_r.Value, "primary", _("Accent color"), _("HEX color used as the primary Fluent accent when the interface is rendered in light mode."));
+        let o = i.taboption("light", colors_r.Value, "primary", _("Accent color"), _("HEX color used as the primary FortiGate accent when the interface is rendered in light mode."));
         o.default = FLUENT_DEFAULTS.primary, omitDefaultValue(o), configureHexColorValue(o, "primary");
     }
     {
-        let o = l.taboption("light", colors_r.Value, "progressbar_font", _("Progress bar text color"), _("HEX color used for progress-bar labels while the interface is rendered in light mode."));
+        let o = i.taboption("light", colors_r.Value, "progressbar_font", _("Progress bar text color"), _("HEX color used for progress-bar labels while the interface is rendered in light mode."));
         o.default = FLUENT_DEFAULTS.progressbar_font, omitDefaultValue(o), configureHexColorValue(o, "progressbar_font");
     }
     {
-        let o = l.taboption("light", colors_r.Value, "page_bg", _("Page background"), _("HEX color used for the main page background in light mode."));
+        let o = i.taboption("light", colors_r.Value, "page_bg", _("Page background"), _("HEX color used for the main page background in light mode."));
         o.default = FLUENT_DEFAULTS.page_bg, omitDefaultValue(o), configureHexColorValue(o, "page_bg");
     }
     {
-        let o = l.taboption("light", colors_r.Value, "card_bg", _("Card background"), _("HEX color used for container/card elements in light mode."));
+        let o = i.taboption("light", colors_r.Value, "card_bg", _("Card background"), _("HEX color used for container/card elements in light mode."));
         o.default = FLUENT_DEFAULTS.card_bg, omitDefaultValue(o), configureHexColorValue(o, "card_bg");
     }
     {
-        let o = l.taboption("light", colors_r.Value, "sidebar_bg", _("Sidebar background"), _("HEX color used for the navigation sidebar in light mode."));
+        let o = i.taboption("light", colors_r.Value, "sidebar_bg", _("Sidebar background"), _("HEX color used for the navigation sidebar in light mode."));
         o.default = FLUENT_DEFAULTS.sidebar_bg, omitDefaultValue(o), configureHexColorValue(o, "sidebar_bg");
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_primary", _("Accent color"), _("HEX color used as the primary Fluent accent when the interface is rendered in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_primary", _("Accent color"), _("HEX color used as the primary FortiGate accent when the interface is rendered in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_primary, omitDefaultValue(o), configureHexColorValue(o, "dark_primary", !0);
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_progressbar_font", _("Progress bar text color"), _("HEX color used for progress-bar labels while the interface is rendered in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_progressbar_font", _("Progress bar text color"), _("HEX color used for progress-bar labels while the interface is rendered in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_progressbar_font, omitDefaultValue(o), configureHexColorValue(o, "dark_progressbar_font", !0);
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_page_bg", _("Page background"), _("HEX color used for the main page background in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_page_bg", _("Page background"), _("HEX color used for the main page background in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_page_bg, omitDefaultValue(o), configureHexColorValue(o, "dark_page_bg", !0);
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_card_bg", _("Card background"), _("HEX color used for container/card elements in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_card_bg", _("Card background"), _("HEX color used for container/card elements in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_card_bg, omitDefaultValue(o), configureHexColorValue(o, "dark_card_bg", !0);
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_sidebar_bg", _("Sidebar background"), _("HEX color used for the navigation sidebar in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_sidebar_bg", _("Sidebar background"), _("HEX color used for the navigation sidebar in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_sidebar_bg, omitDefaultValue(o), configureHexColorValue(o, "dark_sidebar_bg", !0);
     }
 };
@@ -285,35 +285,35 @@ const registerColorsTab = (d)=>{
 let general_e = L.form;
 
 
-const registerGeneralTab = (l, r = !0)=>{
-    l.tab("general", _("General"));
+const registerGeneralTab = (r, l = !0)=>{
+    r.tab("general", _("General"));
     {
-        let o = l.taboption("general", general_e.ListValue, "mode", _("Color mode"));
-        o.value("auto", _("Follow system")), o.value("light", _("Force light mode")), o.value("dark", _("Force dark mode")), o.default = FLUENT_DEFAULTS.mode, omitDefaultValue(o), o.description = _("Use the system/browser preference, or always render the Fluent theme in a fixed light or dark palette.");
+        let o = r.taboption("general", general_e.ListValue, "mode", _("Color mode"));
+        o.value("auto", _("Follow system")), o.value("light", _("Force light mode")), o.value("dark", _("Force dark mode")), o.default = FLUENT_DEFAULTS.mode, omitDefaultValue(o), o.description = _("Use the system/browser preference, or always render the FortiGate theme in a fixed light or dark palette.");
     }
     {
-        let o = l.taboption("general", general_e.ListValue, "direction_mode", _("Text direction"));
+        let o = r.taboption("general", general_e.ListValue, "direction_mode", _("Text direction"));
         o.value("auto", _("Automatic (Arabic/Persian locales only)")), o.value("rtl", _("Force RTL")), o.value("ltr", _("Force LTR")), o.default = FLUENT_DEFAULTS.direction_mode, omitDefaultValue(o), o.description = _("Choose the document direction for authenticated and login pages. Automatic mode resolves Arabic and Persian locale codes (ar, ar_*, ar-*, fa, fa_*, fa-*) to RTL and falls back to LTR for missing or unrecognized locales.");
     }
     {
-        let o = l.taboption("general", general_e.ListValue, "font_weight", _("Navigation font weight"));
+        let o = r.taboption("general", general_e.ListValue, "font_weight", _("Navigation font weight"));
         o.value("normal", _("Normal")), o.value("600", _("Semibold")), o.default = FLUENT_DEFAULTS.font_weight, omitDefaultValue(o), o.description = _("Controls the font weight used by main navigation labels and related theme text accents.");
     }
     {
-        let o = l.taboption("general", general_e.ListValue, "control_height", _("Control height"));
+        let o = r.taboption("general", general_e.ListValue, "control_height", _("Control height"));
         o.value("32", _("Compact (32px)")), o.value("42", _("Comfortable (42px)")), o.default = FLUENT_DEFAULTS.control_height, omitDefaultValue(o), o.description = _("Applies to standard buttons, inputs, selects, and similar form controls across the theme.");
     }
-    if (r) {
-        let r = l.taboption("general", general_e.Flag, "custom_select", _("Use Fluent custom select dropdowns"), _("Replace native select elements with the theme's custom dropdown widget."));
-        r.default = fluentFlagDefault(FLUENT_DEFAULTS.custom_select) ? r.enabled : r.disabled, omitDefaultValue(r);
+    if (l) {
+        let l = r.taboption("general", general_e.Flag, "custom_select", _("Use custom select dropdowns"), _("Replace native select elements with the theme's custom dropdown widget."));
+        l.default = fluentFlagDefault(FLUENT_DEFAULTS.custom_select) ? l.enabled : l.disabled, omitDefaultValue(l);
     }
     {
-        let o = l.taboption("general", general_e.ListValue, "progressbar_text_position", _("Progress bar text position"));
+        let o = r.taboption("general", general_e.ListValue, "progressbar_text_position", _("Progress bar text position"));
         o.value("top-start", _("Above bar, start")), o.value("bottom-start", _("Below bar, start")), o.value("top-end", _("Above bar, end")), o.value("bottom-end", _("Below bar, end")), o.default = FLUENT_DEFAULTS.progressbar_text_position, omitDefaultValue(o), o.description = _("Position of progress-bar labels relative to the bar. Start/end alignment follows the text direction (LTR or RTL).");
     }
 };
 
-;// CONCATENATED MODULE: ../node_modules/.pnpm/@lazulikao+luci-types@https_cfc1ec583b455be203cca2d0660c10a7/node_modules/@lazulikao/luci-types/src/jsx/jsx-factory.ts
+;// CONCATENATED MODULE: ../node_modules/.pnpm/@lazulikao+luci-types@https+++codeload.github.com+LazuliKao+luci-types+tar.gz+6511175ed_cfc1ec583b455be203cca2d0660c10a7/node_modules/@lazulikao/luci-types/src/jsx/jsx-factory.ts
 const Fragment = Symbol.for("jsx.fragment");
 function jsx_factory_e(e, t) {
     let { children: n, ...r } = null === t || "object" != typeof t || Array.isArray(t) ? {} : t, o = function e(t, n = []) {
@@ -358,7 +358,7 @@ function jsxDEV(t, n) {
     return jsx_factory_e(t, n);
 }
 
-;// CONCATENATED MODULE: ../node_modules/.pnpm/@lazulikao+luci-types@https_cfc1ec583b455be203cca2d0660c10a7/node_modules/@lazulikao/luci-types/src/jsx/jsx-runtime.ts
+;// CONCATENATED MODULE: ../node_modules/.pnpm/@lazulikao+luci-types@https+++codeload.github.com+LazuliKao+luci-types+tar.gz+6511175ed_cfc1ec583b455be203cca2d0660c10a7/node_modules/@lazulikao/luci-types/src/jsx/jsx-runtime.ts
 
 
 ;// CONCATENATED MODULE: ./web/resources/view/fluent-config/tabs/login.tsx
@@ -513,7 +513,7 @@ const registerLoginTab = (e)=>{
     e.tab("login", _("Login page"), _("Customize the login page background, card opacity, and blur radius for light and dark modes."));
     {
         let t = e.taboption("login", login_a.ListValue, "login_bg", "Background source", "Select the background image source for the login page.");
-        t.value("microsoft", "Microsoft dynamic canvas"), t.value("custom", "Custom background"), t.value("bing", "Bing daily wallpaper"), t.default = FLUENT_DEFAULTS.login_bg, omitDefaultValue(t);
+        t.value("microsoft", "FortiGate dynamic canvas"), t.value("custom", "Custom background"), t.value("bing", "Bing daily wallpaper"), t.default = FLUENT_DEFAULTS.login_bg, omitDefaultValue(t);
     }
     e.taboption("login", login_k, "_bg_mgr", "Custom backgrounds", "Upload and manage custom background images for the login page.").depends("login_bg", "custom");
     let t = createModeSubtabs(e, "login", "login_mode_tabs");
@@ -538,21 +538,21 @@ const registerLoginTab = (e)=>{
 };
 
 ;// CONCATENATED MODULE: ./web/resources/view/fluent-config-lite.tsx
-let fluent_config_lite_e = L.form, fluent_config_lite_n = L.uci;
+let fluent_config_lite_e = L.form, fluent_config_lite_o = L.uci;
 
 
 
 
-class fluent_config_lite_l extends L.view {
+class fluent_config_lite_i extends L.view {
     load() {
-        return fluent_config_lite_n.load("fluent");
+        return fluent_config_lite_o.load("fluent");
     }
     render() {
-        let n = new fluent_config_lite_e.Map("fluent", _("Fluent theme settings"), _("Configure color mode, accent colors, layout sizing, login-page appearance, and advanced CSS overrides for luci-theme-fluent-lite.")), l = n.section(fluent_config_lite_e.TypedSection, "global", _("Theme settings"));
-        return l.addremove = !1, l.anonymous = !0, registerGeneralTab(l, !1), registerColorsTab(l), registerLoginTab(l), registerAdvancedTab(l), n.render();
+        let o = new fluent_config_lite_e.Map("fluent", _("FortiGate theme settings"), _("Configure color mode, accent colors, layout sizing, login-page appearance, and advanced CSS overrides for the FortiGate community theme.")), i = o.section(fluent_config_lite_e.TypedSection, "global", _("Theme settings"));
+        return i.addremove = !1, i.anonymous = !0, registerGeneralTab(i, !1), registerColorsTab(i), registerLoginTab(i), registerAdvancedTab(i), o.render();
     }
 }
-const main = fluent_config_lite_l;
+const main = fluent_config_lite_i;
 
 
 return main;

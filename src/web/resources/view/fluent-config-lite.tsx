@@ -14,8 +14,8 @@ class mainImpl extends L.view {
   render() {
     const map = new form.Map(
       "fluent",
-      _("Fluent theme settings"),
-      _("Configure color mode, accent colors, layout sizing, login-page appearance, and advanced CSS overrides for luci-theme-fluent-lite."),
+      _("FortiGate theme settings"),
+      _("Configure color mode, accent colors, layout sizing, login-page appearance, and advanced CSS overrides for the FortiGate community theme."),
     );
     const section = map.section(form.TypedSection, "global", _("Theme settings"));
     section.addremove = false;

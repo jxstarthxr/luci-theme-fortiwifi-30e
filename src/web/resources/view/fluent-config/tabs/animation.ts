@@ -36,7 +36,7 @@ export const registerAnimationTab = (section: LuCI.form.TypedSection): void => {
       form.Flag,
       "prefers_reduced_motion",
       _("Respect reduced-motion preference"),
-      _("When enabled, Fluent animations follow the browser or operating system reduced-motion preference."),
+      _("When enabled, theme animations follow the browser or operating system reduced-motion preference."),
     );
     option.default = fluentFlagDefault(FLUENT_DEFAULTS.prefers_reduced_motion) ? option.enabled : option.disabled;
     omitDefaultValue(option);

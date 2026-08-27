@@ -96,14 +96,14 @@ def main():
     md = []
     
     if args.is_nightly:
-        md.append("## LuCI Theme Fluent - Nightly Build\n")
+        md.append("## FortiGate Community Theme - Nightly Build\n")
         md.append(f"Automatic build for package version `{args.version}` from commit `{args.commit}`.\n")
     else:
-        md.append(f"## LuCI Theme Fluent {args.tag}\n")
+        md.append(f"## FortiGate Community Theme {args.tag}\n")
 
     md.append("### Packages")
-    md.append("- `luci-theme-fluent` — Full FluentUI theme for OpenWrt LuCI")
-    md.append("- `luci-theme-fluent-lite` — Core FluentUI theme without optional enhancements (mutually exclusive with full)")
+    md.append("- `luci-theme-fluent` — Full FortiGate community theme for OpenWrt LuCI")
+    md.append("- `luci-theme-fluent-lite` — Core theme without optional enhancements (mutually exclusive with full)")
     md.append("- `luci-mod-fluentdashboard` — Theme-independent dashboard that can coexist with `luci-mod-dashboard`")
     md.append("- `luci-i18n-fluentdashboard-zh-cn` — Simplified Chinese dashboard translation")
     md.append("- `luci-i18n-fluent` — Translations\n")
@@ -168,7 +168,7 @@ def main():
     md.append("apk add luci-theme-fluent-lite-*.apk  # Lite")
     md.append("apk add luci-mod-fluentdashboard-*.apk")
     md.append("```")
-    md.append("\nInstall only one theme variant at a time. The Fluent dashboard uses its own route and can coexist with the official `luci-mod-dashboard` package.")
+    md.append("\nInstall only one theme variant at a time. The FortiGate community dashboard uses its own route and can coexist with the official `luci-mod-dashboard` package.")
 
     with open(args.output, 'w', encoding='utf-8') as f:
         f.write('\n'.join(md))

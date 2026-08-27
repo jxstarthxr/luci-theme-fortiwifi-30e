@@ -1,6 +1,6 @@
 {
 	"admin/system/fluent-config": {
-		"title": "Fluent Theme",
+		"title": "FortiGate Theme",
 		"order": 90,
 		"action": {
 			"type": "view",

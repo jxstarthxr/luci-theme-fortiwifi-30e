@@ -12,13 +12,13 @@ include $(INCLUDE_DIR)/package.mk
 define Package/$(PKG_NAME)
   SECTION:=luci
   CATEGORY:=LuCI
-  TITLE:=Fluent Theme for LuCI (lite)
+  TITLE:=FortiGate Community Theme for LuCI (lite)
   DEPENDS:=+luci-base
   CONFLICTS:=luci-theme-fluent
 endef
 
 define Package/$(PKG_NAME)/description
-Core FluentUI theme styling for LuCI without optional menu, updater, log, and application enhancements.
+Core FortiGate community theme styling for LuCI without optional menu, updater, log, and application enhancements.
 endef
 
 define Build/Prepare
@@ -50,8 +50,9 @@ endef
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
 [ -n "$${IPKG_INSTROOT}" ] || {
+	uci -q delete luci.themes.Fluent
 	uci batch <<-EOF
-		set luci.themes.Fluent=/luci-static/fluent
+		set luci.themes.FortiGate=/luci-static/fluent
 		commit luci
 	EOF
 	/etc/init.d/rpcd restart

@@ -1,0 +1,71 @@
+name: Sync upstream
+
+on:
+  schedule:
+    - cron: "17 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-upstream-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Propose upstream updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the fork
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Fetch upstream
+        run: |
+          git remote add upstream https://github.com/LazuliKao/luci-theme-fluent.git
+          git fetch --prune upstream main
+
+      - name: Check whether an update is needed
+        id: update
+        run: |
+          if git merge-base --is-ancestor upstream/main HEAD; then
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+            echo "The fork already contains upstream/main."
+          else
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Merge upstream into an automation branch
+        if: steps.update.outputs.needed == 'true'
+        env:
+          SYNC_BRANCH: automation/sync-upstream
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "$SYNC_BRANCH:refs/remotes/origin/$SYNC_BRANCH" || true
+          git checkout -B "$SYNC_BRANCH" origin/main
+          if ! git merge --no-edit --no-ff upstream/main; then
+            echo "::error::Upstream changes conflict with fork customizations. Resolve this sync manually."
+            git diff --name-only --diff-filter=U
+            exit 1
+          fi
+          git push --force-with-lease origin "HEAD:$SYNC_BRANCH"
+
+      - name: Open or update the sync pull request
+        if: steps.update.outputs.needed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SYNC_BRANCH: automation/sync-upstream
+        run: |
+          if gh pr list --base main --head "$SYNC_BRANCH" --state open --json number --jq 'length' | grep -q '^0$'; then
+            gh pr create \
+              --base main \
+              --head "$SYNC_BRANCH" \
+              --title "chore: sync updates from luci-theme-fluent" \
+              --body "Automated merge of LazuliKao/luci-theme-fluent main into this fork. Review CI and the branding/update-source customizations before merging."
+          else
+            echo "The existing upstream sync pull request was updated."
+          fi

@@ -4,7 +4,7 @@ PKG_NAME:=luci-mod-fluentdashboard
 PKG_VERSION:=1.0.9
 PKG_RELEASE:=1
 PKG_LICENSE:=Apache-2.0
-PKG_MAINTAINER:=LazuliKao
+PKG_MAINTAINER:=jxstarthxr
 PKGARCH:=all
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 PKG_BUILD_DEPENDS:=iwinfo luci-base/host
@@ -15,7 +15,7 @@ define Package/$(PKG_NAME)
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=2. Modules
-  TITLE:=Fluent dashboard for LuCI
+  TITLE:=FortiGate community dashboard for LuCI
   DEPENDS:=+luci-base +libiwinfo
 endef
 

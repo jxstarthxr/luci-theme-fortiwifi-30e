@@ -5,7 +5,7 @@ PKG_VERSION:=1.0.9
 PKG_RELEASE:=1
 PKG_LICENSE:=Apache-2.0
 
-LUCI_TITLE:=Fluent Theme for LuCI
+LUCI_TITLE:=FortiGate Community Theme for LuCI
 LUCI_DEPENDS:=+luci-base
 LUCI_MINIFY_CSS:=0
 
@@ -37,8 +37,9 @@ endef
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
 [ -n "$${IPKG_INSTROOT}" ] || {
+	uci -q delete luci.themes.Fluent
 	uci batch <<-EOF
-		set luci.themes.Fluent=/luci-static/fluent
+		set luci.themes.FortiGate=/luci-static/fluent
 		commit luci
 	EOF
 	/etc/init.d/rpcd restart

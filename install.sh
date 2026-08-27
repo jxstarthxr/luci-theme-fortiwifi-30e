@@ -2,7 +2,7 @@
 
 set -eu
 
-REPO="LazuliKao/luci-theme-fluent"
+REPO="jxstarthxr/luci-theme-fortiwifi-30e"
 RELEASE_TAG="${1:-latest}"
 VARIANT="${2:-full}"
 case "${VARIANT}" in

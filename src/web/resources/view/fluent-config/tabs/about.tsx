@@ -1,7 +1,7 @@
 const form = L.form;
-const ghmirror = "https://ghfast.top/"; // Use GHProxy to bypass GitHub API rate limits
+const ghmirror = "https://ghfast.top/"; // Optional release-download acceleration
 
-import { callCheckDownload, callDoInstall, callGetVersion, callStartDownload, fetchLatestRelease, GitHubAPIError } from "../../../utils/update";
+import { callCheckDownload, callCheckInstall, callDoInstall, callGetInstallLog, callGetVersion, callStartDownload, fetchLatestRelease, GitHubAPIError } from "../../../utils/update";
 
 const CBIAboutManager = form.DummyValue.extend({
   renderWidget: (_section_id: string, _option_index: number, _cfgvalue: string) => {
@@ -13,9 +13,10 @@ const CBIAboutManager = form.DummyValue.extend({
     // UI state elements
     const logoEl = (
       <div class="fluent-about-logo">
-        <img src={`${L.media()}/img/fluent.svg`} alt="Fluent Theme Logo" />
-        <h2>Fluent Theme</h2>
-        <p class="fluent-about-subtitle">{_("Fluent Design 2 theme for LuCI")}</p>
+        <img src={`${L.media()}/img/fluent.svg`} alt="FortiGate Community Theme Logo" />
+        <h2>FortiGate Community Theme</h2>
+        <p class="fluent-about-subtitle">{_("Unofficial FortiWiFi 30E community theme for LuCI")}</p>
+        <p class="fluent-about-subtitle">{_("Not affiliated with or endorsed by Fortinet. Fortinet, FortiGate, and FortiWiFi are trademarks of Fortinet, Inc.")}</p>
       </div>
     );
 
@@ -23,7 +24,7 @@ const CBIAboutManager = form.DummyValue.extend({
       <div class="fluent-about-details">
         <div class="fluent-about-detail-row">
           <strong>{_("Author")}:</strong>
-          <span>LazuliKao</span>
+          <span>jxstarthxr</span>
         </div>
         <div class="fluent-about-detail-row">
           <strong>{_("Installed version")}:</strong>
@@ -36,8 +37,16 @@ const CBIAboutManager = form.DummyValue.extend({
         <div class="fluent-about-detail-row">
           <strong>{_("Source code")}:</strong>
           <span>
-            <a href="https://github.com/LazuliKao/luci-theme-fluent" target="_blank" rel="noreferrer">
+            <a href="https://github.com/jxstarthxr/luci-theme-fortiwifi-30e" target="_blank" rel="noreferrer">
               GitHub Repository
+            </a>
+          </span>
+        </div>
+        <div class="fluent-about-detail-row">
+          <strong>{_("Upstream project")}:</strong>
+          <span>
+            <a href="https://github.com/LazuliKao/luci-theme-fluent" target="_blank" rel="noreferrer">
+              luci-theme-fluent by LazuliKao
             </a>
           </span>
         </div>
@@ -64,6 +73,7 @@ const CBIAboutManager = form.DummyValue.extend({
         {_("Check for updates")}
       </button>
     ) as HTMLButtonElement;
+    checkBtn.disabled = true;
 
     const updateControlsEl = (
       <div class="fluent-update-controls" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
@@ -140,6 +150,7 @@ const CBIAboutManager = form.DummyValue.extend({
         if (pkgTypeSpan) {
           pkgTypeSpan.textContent = pkgType === "apk" ? "APK (OpenWrt 25.12+)" : "IPK (OpenWrt 24.10)";
         }
+        checkBtn.disabled = false;
       } catch (err) {
         console.error("Failed to fetch version", err);
         setStatus(_("Failed to fetch current theme version."), "error");
@@ -169,7 +180,7 @@ const CBIAboutManager = form.DummyValue.extend({
         }
 
         if (!release.package_asset) {
-          setStatus(_("No matching package asset found for your system architecture in this release."), "error");
+          setStatus(_("No matching package asset found for your package format in this release."), "error");
           return;
         }
 
@@ -211,7 +222,7 @@ const CBIAboutManager = form.DummyValue.extend({
           const packageAsset = release.package_asset;
 
           if (!packageAsset) {
-            setStatus(_("No matching package asset found for your system architecture in this release."), "error");
+            setStatus(_("No matching package asset found for your package format in this release."), "error");
             return;
           }
           installBtn.disabled = true;
@@ -244,6 +255,10 @@ const CBIAboutManager = form.DummyValue.extend({
           const downloadStep = async () => {
             const method = methodSelect.value;
             const useProxy = method.includes("ghproxy");
+
+            if (useProxy && (expectedHash === "skip" || expectedI18nHashes.includes("skip"))) {
+              throw new Error(_("GHProxy downloads require SHA-256 digests for every package. Use the official GitHub backend for this release."));
+            }
 
             const confirmInstallation = () => {
               return new Promise<boolean>((resolve) => {
@@ -323,55 +338,68 @@ const CBIAboutManager = form.DummyValue.extend({
               throw new Error(installRes.message || "Router installation failed.");
             }
 
-            // Create log container
+            // Create log container and follow the install until its real exit status is known.
             const logPre = (
               <pre style="background: var(--fluent-code-bg, #1a1a1a); color: var(--fluent-text, #fff); padding: 10px; border-radius: 4px; font-family: monospace; font-size: 12px; white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto; margin-top: 15px;"></pre>
             ) as HTMLPreElement;
 
+            let keepPollingLog = true;
             const pollLog = async () => {
-              const ubusUrl = L.env.ubuspath || "/ubus";
-              const sid = L.env.sessionid;
-
-              while (true) {
+              while (keepPollingLog) {
                 try {
-                  const res = await fetch(ubusUrl, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      jsonrpc: "2.0",
-                      id: 1,
-                      method: "call",
-                      params: [sid, "luci.fluent", "get_install_log", {}],
-                    }),
-                  });
-                  const data = await res.json();
-
-                  // If error (like Access Denied after rpcd restarts), break the polling silently
-                  if (data.error) break;
-
-                  if (data.result?.[1]?.log) {
-                    logPre.textContent = data.result[1].log;
+                  const result = await callGetInstallLog();
+                  if (result.log) {
+                    logPre.textContent = result.log;
                     logPre.scrollTop = logPre.scrollHeight;
                   }
-
-                  await new Promise((r) => setTimeout(r, 1000));
                 } catch {
-                  break;
+                  // rpcd briefly disconnects while the upgraded package restarts it.
                 }
+                await new Promise((resolve) => setTimeout(resolve, 1000));
               }
             };
-            pollLog();
+
+            const logPolling = pollLog();
+            let installCode = 255;
+            let consecutiveRpcFailures = 0;
+
+            try {
+              while (true) {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                try {
+                  const installState = await callCheckInstall();
+                  consecutiveRpcFailures = 0;
+                  if (installState.running) continue;
+                  installCode = installState.code ?? 255;
+                  break;
+                } catch (error) {
+                  consecutiveRpcFailures += 1;
+                  if (consecutiveRpcFailures >= 15) {
+                    throw new Error(`${_("Unable to confirm the package installation result after RPC restarted")}: ${error instanceof Error ? error.message : String(error)}`);
+                  }
+                }
+              }
+            } catch (error) {
+              updateCardEl.appendChild(logPre);
+              throw error;
+            } finally {
+              keepPollingLog = false;
+              await logPolling;
+            }
+
+            if (installCode !== 0) {
+              updateCardEl.appendChild(logPre);
+              throw new Error(_("Router package installation failed. Review the installation log and install the release manually if needed."));
+            }
 
             // Finished successfully
-            setStatus(_("Theme successfully updated! Reloading RPC service, please refresh the page in 5 seconds."), "success");
+            setStatus(_("Theme successfully updated. Reload the web interface to apply the changes."), "success");
             updateProgress("done", 100, _("Finished"));
 
             dom.content(updateCardEl, [
               <div class="fluent-update-success">
                 <h3 style="color: var(--fluent-success); text-align: center;">{_("Upgrade Successful!")}</h3>
-                <p style="text-align: center; margin: 15px 0;">
-                  {_("The theme is being installed on your router. The logs are displayed below. Reloading the web interface will apply the changes once RPCD restarts.")}
-                </p>
+                <p style="text-align: center; margin: 15px 0;">{_("The package manager completed successfully. The installation log is displayed below.")}</p>
                 {logPre}
                 <div style="display: flex; justify-content: center; margin-top: 20px;">
                   <button

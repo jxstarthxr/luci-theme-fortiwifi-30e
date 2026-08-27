@@ -9,7 +9,7 @@ export const registerColorsTab = (section: LuCI.form.TypedSection): void => {
   const modeSection = createModeSubtabs(section, "colors", "colors_mode_tabs");
 
   {
-    const option = modeSection.taboption("light", form.Value, "primary", _("Accent color"), _("HEX color used as the primary Fluent accent when the interface is rendered in light mode."));
+    const option = modeSection.taboption("light", form.Value, "primary", _("Accent color"), _("HEX color used as the primary FortiGate accent when the interface is rendered in light mode."));
     option.default = FLUENT_DEFAULTS.primary;
     omitDefaultValue(option);
     configureHexColorValue(option, "primary");
@@ -50,7 +50,7 @@ export const registerColorsTab = (section: LuCI.form.TypedSection): void => {
   }
 
   {
-    const option = modeSection.taboption("dark", form.Value, "dark_primary", _("Accent color"), _("HEX color used as the primary Fluent accent when the interface is rendered in dark mode."));
+    const option = modeSection.taboption("dark", form.Value, "dark_primary", _("Accent color"), _("HEX color used as the primary FortiGate accent when the interface is rendered in dark mode."));
     option.default = FLUENT_DEFAULTS.dark_primary;
     omitDefaultValue(option);
     configureHexColorValue(option, "dark_primary", true);

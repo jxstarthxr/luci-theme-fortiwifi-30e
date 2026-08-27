@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: luci-theme-fluent\n"
-"POT-Creation-Date: 2026-08-13 21:38+0800\n"
+"POT-Creation-Date: 2026-08-27 17:55-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: LazuliKao\n"
 "Language-Team: LuCI Theme Fluent\n"
@@ -159,8 +159,9 @@ msgstr "紧凑（32px）"
 
 msgid ""
 "Configure color mode, accent colors, layout sizing, animation behavior, "
-"login-page appearance, and advanced CSS overrides for luci-theme-fluent."
-msgstr "配置色彩模式、强调色、布局尺寸、动画行为、登录页面外观，以及用于 `luci-theme-fluent` 的高级 CSS 覆盖。"
+"login-page appearance, and advanced CSS overrides for the FortiGate "
+"community theme."
+msgstr ""
 
 msgid "Confirm"
 msgstr "确认"
@@ -180,14 +181,14 @@ msgid ""
 msgstr "控制主导航标签及相关主题强调文本的字体粗细。"
 
 msgid ""
-"Controls the shared Fluent corner radius tokens used by cards, buttons, "
-"inputs, and related UI surfaces."
-msgstr "控制卡片、按钮、输入框及相关 UI 元素共享的 Fluent 圆角半径值。"
+"Controls the shared corner radius tokens used by cards, buttons, inputs, and "
+"related UI surfaces."
+msgstr ""
 
 msgid ""
-"Controls the shared Fluent transition timing used by menu, header, and other "
-"theme animations."
-msgstr "控制菜单、头部和其他主题动画中使用的共享 Fluent 过渡时间。"
+"Controls the shared transition timing used by menu, header, and other theme "
+"animations."
+msgstr ""
 
 msgid "Copied"
 msgstr "已复制"
@@ -280,15 +281,6 @@ msgstr "完成"
 msgid "Fix primary menu title errors before saving."
 msgstr "保存前，请修复主菜单标题中的错误。"
 
-msgid "Fluent Design 2 theme for LuCI"
-msgstr "适用于 LuCI 的 Fluent Design 2 主题"
-
-msgid "Fluent Theme"
-msgstr "Fluent 主题"
-
-msgid "Fluent theme settings"
-msgstr "Fluent 主题设置"
-
 msgid "Follow system"
 msgstr "跟随系统"
 
@@ -304,8 +296,19 @@ msgstr "强制 LTR"
 msgid "Force RTL"
 msgstr "强制 RTL"
 
+msgid "FortiGate Theme"
+msgstr ""
+
+msgid "FortiGate theme settings"
+msgstr ""
+
 msgid "General"
 msgstr "常规"
+
+msgid ""
+"GHProxy downloads require SHA-256 digests for every package. Use the "
+"official GitHub backend for this release."
+msgstr ""
 
 msgid "GitHub Token Required"
 msgstr "需要 GitHub Token"
@@ -317,14 +320,14 @@ msgid "Height of the top header bar in pixels."
 msgstr "顶部标题栏的高度，单位为像素。"
 
 msgid ""
-"HEX color used as the primary Fluent accent when the interface is rendered "
-"in dark mode."
-msgstr "在界面以深色模式渲染时，用作 Fluent 主要强调色的十六进制颜色。"
+"HEX color used as the primary FortiGate accent when the interface is "
+"rendered in dark mode."
+msgstr ""
 
 msgid ""
-"HEX color used as the primary Fluent accent when the interface is rendered "
-"in light mode."
-msgstr "在界面以亮色模式渲染时，用作 Fluent 主要强调色的十六进制颜色。"
+"HEX color used as the primary FortiGate accent when the interface is "
+"rendered in light mode."
+msgstr ""
 
 msgid "HEX color used for container/card elements in dark mode."
 msgstr "在深色模式下，用于容器/卡片元素的十六进制颜色。"
@@ -417,16 +420,19 @@ msgstr "有 Nightly 构建可用（检查是否需要重新安装）。"
 msgid "Nightly Channel (Prerelease)"
 msgstr "Nightly 通道 (预发布)"
 
-msgid ""
-"No matching package asset found for your system architecture in this "
-"release."
-msgstr "在此版本中，未找到适用于您系统架构的软件包资源。"
+msgid "No matching package asset found for your package format in this release."
+msgstr ""
 
 msgid "None"
 msgstr "无"
 
 msgid "Normal"
 msgstr "常规"
+
+msgid ""
+"Not affiliated with or endorsed by Fortinet. Fortinet, FortiGate, and "
+"FortiWiFi are trademarks of Fortinet, Inc."
+msgstr ""
 
 msgid ""
 "Opacity of the login card in dark mode. 0 is fully transparent and 1 is "
@@ -439,10 +445,10 @@ msgid ""
 msgstr "亮色模式下登录卡片的不透明度。0 表示完全透明，1 表示完全不透明。"
 
 msgid ""
-"Optional raw CSS injected into the Fluent header template. Use this for "
-"extra --fluent-* variable overrides or page-specific tweaks that are not "
-"exposed as dedicated options."
-msgstr "在 Fluent 头部模板中注入可选的原始 CSS。用于额外的 `--fluent-*` 变量覆盖，或页面特定的调整，这些调整没有作为专门的选项暴露。"
+"Optional raw CSS injected into the theme header template. Use this for extra "
+"--fluent-* variable overrides or page-specific tweaks that are not exposed "
+"as dedicated options."
+msgstr ""
 
 msgid "Package format"
 msgstr "软件包格式"
@@ -512,6 +518,11 @@ msgstr "正在使用令牌重试..."
 msgid "Rounded (6px)"
 msgstr "圆角 (6px)"
 
+msgid ""
+"Router package installation failed. Review the installation log and install "
+"the release manually if needed."
+msgstr ""
+
 msgid "Save"
 msgstr "保存"
 
@@ -541,8 +552,8 @@ msgstr "半粗体"
 
 msgid ""
 "Sets the base interface font size in pixels. Most theme text scales from "
-"this value through the Fluent CSS variables. Recommended range: 12-18px."
-msgstr "设置基础界面字体大小（像素）。大多数主题文本会根据 Fluent CSS 变量从该值进行缩放。建议范围：12-18px。"
+"this value through the theme CSS variables. Recommended range: 12-18px."
+msgstr ""
 
 msgid "Show %s in the menu"
 msgstr "在菜单中显示 %s"
@@ -601,6 +612,11 @@ msgid "Text direction"
 msgstr "文本方向"
 
 msgid ""
+"The package manager completed successfully. The installation log is "
+"displayed below."
+msgstr ""
+
+msgid ""
 "The stored menu layout is invalid. Choose \"Restore defaults\" or make an edit "
 "before saving."
 msgstr "已存储的菜单布局无效。请选择“恢复默认设置”或编辑后再保存。"
@@ -609,11 +625,6 @@ msgid ""
 "The stored menu layout is invalid. Restore defaults or edit the layout "
 "before saving."
 msgstr "已存储的菜单布局无效。恢复默认设置或编辑布局后再保存。"
-
-msgid ""
-"The theme is being installed on your router. The logs are displayed below. "
-"Reloading the web interface will apply the changes once RPCD restarts."
-msgstr "主题正在安装到您的路由器。日志显示在下方。重新加载网页界面将在 RPCD 重启后应用更改。"
 
 msgid ""
 "The theme package is ready. Are you sure you want to proceed with the "
@@ -628,10 +639,8 @@ msgstr "该令牌不需要授予任何权限/范围（只读公开访问权限�
 msgid "Theme settings"
 msgstr "主题设置"
 
-msgid ""
-"Theme successfully updated! Reloading RPC service, please refresh the page "
-"in 5 seconds."
-msgstr "主题更新成功！正在重新加载 RPC 服务，请在 5 秒后刷新页面。"
+msgid "Theme successfully updated. Reload the web interface to apply the changes."
+msgstr ""
 
 msgid "Theme transition speed"
 msgstr "主题过渡速度"
@@ -642,6 +651,12 @@ msgstr "切换全屏"
 msgid "Triggering installation on router..."
 msgstr "触发路由器上的安装..."
 
+msgid "Unable to confirm the package installation result after RPC restarted"
+msgstr ""
+
+msgid "Unofficial FortiWiFi 30E community theme for LuCI"
+msgstr ""
+
 msgid "Update channel"
 msgstr "更新通道"
 
@@ -651,8 +666,11 @@ msgstr "更新失败"
 msgid "Upgrade Successful!"
 msgstr "升级成功！"
 
-msgid "Use Fluent custom select dropdowns"
-msgstr "使用 Fluent 自定义下拉选择框"
+msgid "Upstream project"
+msgstr ""
+
+msgid "Use custom select dropdowns"
+msgstr ""
 
 msgid ""
 "Use the browser View Transition API to animate navigation between LuCI pages "
@@ -660,9 +678,9 @@ msgid ""
 msgstr "当浏览器支持时，使用浏览器的 View Transition API 为 LuCI 页面之间的导航添加过渡动画。"
 
 msgid ""
-"Use the system/browser preference, or always render the Fluent theme in a "
+"Use the system/browser preference, or always render the FortiGate theme in a "
 "fixed light or dark palette."
-msgstr "使用系统/浏览器的偏好设置，或始终以固定的亮色或深色配色渲染 Fluent 主题。"
+msgstr ""
 
 msgid "Username is required."
 msgstr "必须输入用户名。"
@@ -674,9 +692,9 @@ msgid "Warnings"
 msgstr "警告"
 
 msgid ""
-"When enabled, Fluent animations follow the browser or operating system "
+"When enabled, theme animations follow the browser or operating system "
 "reduced-motion preference."
-msgstr "启用后，Fluent 动画将遵循浏览器或操作系统的减少动态效果偏好设置。"
+msgstr ""
 
 msgid "Width of the main navigation sidebar in pixels."
 msgstr "主导航侧边栏的宽度（像素）。"

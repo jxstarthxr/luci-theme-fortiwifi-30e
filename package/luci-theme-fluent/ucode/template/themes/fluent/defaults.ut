@@ -1,8 +1,8 @@
 {%
   defaults.mode = "auto";
-  defaults.primary = "#0078d4";
-  defaults.dark_primary = "#4da6ff";
-  defaults.progressbar_font = "#2e2b60";
+  defaults.primary = "#f4511e";
+  defaults.dark_primary = "#ff7043";
+  defaults.progressbar_font = "#3d170c";
   defaults.dark_progressbar_font = "#d6d9e5";
   defaults.page_bg = "#fafafa";
   defaults.card_bg = "#ffffff";

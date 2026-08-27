@@ -6,7 +6,7 @@
 				"/www/luci-static/fluent/background/*": [ "list" ]
 			},
 			"ubus": {
-				"luci.fluent": [ "avail", "remove", "rename", "set_mode", "get_version", "check_download", "get_install_log" ]
+				"luci.fluent": [ "avail", "get_version", "check_download", "check_install", "get_install_log" ]
 			},
 			"uci": [ "fluent" ]
 		},
@@ -17,7 +17,7 @@
 				"/tmp/fluent-update.apk": [ "write" ]
 			},
 			"ubus": {
-				"luci.fluent": [ "set_mode", "do_install", "start_download" ]
+				"luci.fluent": [ "remove", "rename", "set_mode", "do_install", "start_download" ]
 			},
 			"uci": [ "fluent" ]
 		}

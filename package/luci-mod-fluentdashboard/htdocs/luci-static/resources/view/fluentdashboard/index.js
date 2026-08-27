@@ -528,7 +528,7 @@ class P extends L.view {
                 class: "fluent-dashboard__header"
             }, [
                 E("div", {}, [
-                    E("h1", {}, _("Fluent Dashboard")),
+                    E("h1", {}, _("FortiGate Dashboard")),
                     E("p", {}, _("A live overview of this OpenWrt device."))
                 ]),
                 E("p", {

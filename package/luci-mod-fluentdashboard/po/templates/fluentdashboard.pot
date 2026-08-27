@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: luci-mod-fluentdashboard\n"
-"POT-Creation-Date: 2026-08-24 00:20+0800\n"
+"POT-Creation-Date: 2026-08-27 17:56-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Firmware Version"
 msgstr ""
 
-msgid "Fluent Dashboard"
+msgid "FortiGate Dashboard"
 msgstr ""
 
 msgid "Gateway"

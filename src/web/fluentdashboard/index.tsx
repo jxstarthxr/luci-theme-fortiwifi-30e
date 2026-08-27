@@ -437,7 +437,7 @@ class mainImpl extends L.view {
     ensureStylesheet();
     this.root = E("div", { class: "fluent-dashboard" }, [
       E("header", { class: "fluent-dashboard__header" }, [
-        E("div", {}, [E("h1", {}, _("Fluent Dashboard")), E("p", {}, _("A live overview of this OpenWrt device."))]),
+        E("div", {}, [E("h1", {}, _("FortiGate Dashboard")), E("p", {}, _("A live overview of this OpenWrt device."))]),
         E("p", { class: "fluent-dashboard__updated" }, [_("Updated"), " ", E("time", { "data-dashboard-updated": "" }, summary.updatedAt.toLocaleTimeString())]),
       ]),
       E("div", { class: "fluent-dashboard__grid" }, [

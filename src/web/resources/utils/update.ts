@@ -1,4 +1,6 @@
 const rpc = L.rpc;
+
+export const UPDATE_REPOSITORY = "jxstarthxr/luci-theme-fortiwifi-30e";
 export interface GitHubReleaseResponse {
   url: string;
   assets_url: string;
@@ -106,6 +108,16 @@ export const callDoInstall = rpc.declare<{ result: number; message?: string }, [
   params: ["hash", "i18n_hash", "i18n_hashes"],
 });
 
+export const callCheckInstall = rpc.declare<{ running: boolean; code?: number }>({
+  object: "luci.fluent",
+  method: "check_install",
+});
+
+export const callGetInstallLog = rpc.declare<{ log?: string }>({
+  object: "luci.fluent",
+  method: "get_install_log",
+});
+
 export class GitHubAPIError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -139,11 +151,15 @@ export function matchI18nAsset(assets: ReleaseAsset[], lang: string, pkgType: "i
  * Fetch the latest release details from GitHub API
  */
 export async function fetchLatestRelease(channel: "stable" | "nightly", pkgType: "ipk" | "apk", installedI18n: string[] = [], token?: string): Promise<ReleaseInfo> {
-  const url = channel === "nightly" ? "https://api.github.com/repos/LazuliKao/luci-theme-fluent/releases/tags/nightly" : "https://api.github.com/repos/LazuliKao/luci-theme-fluent/releases/latest";
+  const releasePath = channel === "nightly" ? "releases/tags/nightly" : "releases/latest";
+  const url = `https://api.github.com/repos/${UPDATE_REPOSITORY}/${releasePath}`;
 
-  const headers: Record<string, string> = {};
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
   if (token) {
-    headers.Authorization = `token ${token}`;
+    headers.Authorization = `Bearer ${token}`;
   }
 
   const response = await fetch(url, { headers });

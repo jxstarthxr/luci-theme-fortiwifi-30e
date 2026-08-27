@@ -1,8 +1,8 @@
 export const FLUENT_DEFAULTS = {
   mode: "auto",
-  primary: "#0078d4",
-  dark_primary: "#4da6ff",
-  progressbar_font: "#2e2b60",
+  primary: "#f4511e",
+  dark_primary: "#ff7043",
+  progressbar_font: "#3d170c",
   dark_progressbar_font: "#d6d9e5",
   page_bg: "#fafafa",
   card_bg: "#ffffff",

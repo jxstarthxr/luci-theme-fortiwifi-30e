@@ -81,7 +81,7 @@
     }
 
     if (login_bg === 'microsoft') {
-      return ['', 'MicrosoftDynamic', ''];
+      return ['', 'FortiDynamic', ''];
     }
 
     if (login_bg === 'bing') {
@@ -146,8 +146,8 @@
     });
   </script>
   <!-- Video Player End -->
-  {% } else if (backgroundType === 'MicrosoftDynamic') { %}
-  <!-- Microsoft-style Dynamic Canvas Background -->
+  {% } else if (backgroundType === 'FortiDynamic') { %}
+  <!-- FortiGate-inspired Dynamic Canvas Background -->
   <canvas id="login-canvas" class="main-bg"></canvas>
   <script type="text/javascript">//<![CDATA[
     (function() {
@@ -162,48 +162,48 @@
       
       // Dynamic color options based on theme
       const colors = isDark ? {
-        bgStart: '#090a10',
-        bgEnd: '#030406',
+        bgStart: '#1b100d',
+        bgEnd: '#070606',
         ribbons: [
           {
             y1: 0.6, y2: 0.1, thicknessStart: 0.35, thicknessEnd: 0.3, thicknessMid: 0.5,
             cp1x: 0.3, cp1y: 0.4, cp2x: 0.7, cp2y: 0.2, speed: 0.0004, phase: 0,
-            c1: 'rgba(10, 24, 72, 0.45)', c2: 'rgba(3, 8, 28, 0)'
+            c1: 'rgba(244, 81, 30, 0.45)', c2: 'rgba(55, 12, 5, 0)'
           },
           {
             y1: 0.75, y2: 0.2, thicknessStart: 0.25, thicknessEnd: 0.2, thicknessMid: 0.4,
             cp1x: 0.4, cp1y: 0.55, cp2x: 0.8, cp2y: 0.35, speed: 0.0006, phase: 1.8,
-            c1: 'rgba(0, 72, 160, 0.35)', c2: 'rgba(0, 10, 40, 0)'
+            c1: 'rgba(218, 41, 28, 0.35)', c2: 'rgba(46, 8, 5, 0)'
           },
           {
             y1: 0.5, y2: 0.35, thicknessStart: 0.15, thicknessEnd: 0.15, thicknessMid: 0.3,
             cp1x: 0.2, cp1y: 0.65, cp2x: 0.6, cp2y: 0.45, speed: 0.0005, phase: 3.5,
-            c1: 'rgba(84, 32, 140, 0.25)', c2: 'rgba(12, 4, 28, 0)'
+            c1: 'rgba(255, 167, 38, 0.24)', c2: 'rgba(42, 20, 3, 0)'
           },
           {
             y1: 0.5, y2: 0.35, thicknessStart: 0.02, thicknessEnd: 0.02, thicknessMid: 0.04,
             cp1x: 0.2, cp1y: 0.65, cp2x: 0.6, cp2y: 0.45, speed: 0.0005, phase: 3.5,
-            c1: 'rgba(0, 180, 255, 0.25)', c2: 'rgba(0, 0, 0, 0)'
+            c1: 'rgba(255, 112, 67, 0.28)', c2: 'rgba(0, 0, 0, 0)'
           }
         ]
       } : {
-        bgStart: '#eef3fa',
-        bgEnd: '#f4f6f9',
+        bgStart: '#fff2ec',
+        bgEnd: '#f7f4f2',
         ribbons: [
           {
             y1: 0.6, y2: 0.1, thicknessStart: 0.35, thicknessEnd: 0.3, thicknessMid: 0.5,
             cp1x: 0.3, cp1y: 0.4, cp2x: 0.7, cp2y: 0.2, speed: 0.0004, phase: 0,
-            c1: 'rgba(0, 120, 215, 0.08)', c2: 'rgba(0, 120, 215, 0)'
+            c1: 'rgba(244, 81, 30, 0.16)', c2: 'rgba(244, 81, 30, 0)'
           },
           {
             y1: 0.75, y2: 0.2, thicknessStart: 0.25, thicknessEnd: 0.2, thicknessMid: 0.4,
             cp1x: 0.4, cp1y: 0.55, cp2x: 0.8, cp2y: 0.35, speed: 0.0006, phase: 1.8,
-            c1: 'rgba(112, 48, 160, 0.06)', c2: 'rgba(112, 48, 160, 0)'
+            c1: 'rgba(218, 41, 28, 0.12)', c2: 'rgba(218, 41, 28, 0)'
           },
           {
             y1: 0.5, y2: 0.35, thicknessStart: 0.15, thicknessEnd: 0.15, thicknessMid: 0.3,
             cp1x: 0.2, cp1y: 0.65, cp2x: 0.6, cp2y: 0.45, speed: 0.0005, phase: 3.5,
-            c1: 'rgba(0, 130, 114, 0.07)', c2: 'rgba(0, 130, 114, 0)'
+            c1: 'rgba(255, 167, 38, 0.14)', c2: 'rgba(255, 167, 38, 0)'
           },
           {
             y1: 0.5, y2: 0.35, thicknessStart: 0.02, thicknessEnd: 0.02, thicknessMid: 0.04,
@@ -319,7 +319,7 @@
           // Draw
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = isDark ? `rgba(255, 255, 255, ${p.alpha})` : `rgba(0, 120, 215, ${p.alpha * 0.7})`;
+          ctx.fillStyle = isDark ? `rgba(255, 255, 255, ${p.alpha})` : `rgba(244, 81, 30, ${p.alpha * 0.7})`;
           ctx.fill();
         });
 

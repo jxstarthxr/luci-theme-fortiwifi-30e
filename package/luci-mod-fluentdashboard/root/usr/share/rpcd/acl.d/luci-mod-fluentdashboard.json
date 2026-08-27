@@ -1,6 +1,6 @@
 {
 	"luci-mod-fluentdashboard-index": {
-		"description": "Grant access to the Fluent dashboard status display",
+		"description": "Grant access to the FortiGate community dashboard status display",
 		"read": {
 			"ubus": {
 				"iwinfo": [ "assoclist" ],

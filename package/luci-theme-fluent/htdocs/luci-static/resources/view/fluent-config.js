@@ -44,7 +44,7 @@ __webpack_require__.d(__webpack_exports__, {
   main: () => (/* binding */ main)
 });
 
-;// CONCATENATED MODULE: ../node_modules/.pnpm/@lazulikao+luci-types@https_cfc1ec583b455be203cca2d0660c10a7/node_modules/@lazulikao/luci-types/src/jsx/jsx-factory.ts
+;// CONCATENATED MODULE: ../node_modules/.pnpm/@lazulikao+luci-types@https+++codeload.github.com+LazuliKao+luci-types+tar.gz+6511175ed_cfc1ec583b455be203cca2d0660c10a7/node_modules/@lazulikao/luci-types/src/jsx/jsx-factory.ts
 const Fragment = Symbol.for("jsx.fragment");
 function jsx_factory_e(e, t) {
     let { children: n, ...r } = null === t || "object" != typeof t || Array.isArray(t) ? {} : t, o = function e(t, n = []) {
@@ -89,11 +89,12 @@ function jsxDEV(t, n) {
     return jsx_factory_e(t, n);
 }
 
-;// CONCATENATED MODULE: ../node_modules/.pnpm/@lazulikao+luci-types@https_cfc1ec583b455be203cca2d0660c10a7/node_modules/@lazulikao/luci-types/src/jsx/jsx-runtime.ts
+;// CONCATENATED MODULE: ../node_modules/.pnpm/@lazulikao+luci-types@https+++codeload.github.com+LazuliKao+luci-types+tar.gz+6511175ed_cfc1ec583b455be203cca2d0660c10a7/node_modules/@lazulikao/luci-types/src/jsx/jsx-runtime.ts
 
 
 ;// CONCATENATED MODULE: ./web/resources/utils/update.ts
 let update_t = L.rpc;
+const UPDATE_REPOSITORY = "jxstarthxr/luci-theme-fortiwifi-30e";
 const callGetVersion = update_t.declare({
     object: "luci.fluent",
     method: "get_version"
@@ -120,6 +121,14 @@ const callDoInstall = update_t.declare({
         "i18n_hashes"
     ]
 });
+const callCheckInstall = update_t.declare({
+    object: "luci.fluent",
+    method: "check_install"
+});
+const callGetInstallLog = update_t.declare({
+    object: "luci.fluent",
+    method: "get_install_log"
+});
 class GitHubAPIError extends Error {
     status;
     constructor(t, e){
@@ -137,56 +146,63 @@ function matchI18nAsset(t, e, l) {
     return null;
 }
 async function fetchLatestRelease(t, e, l = [], s) {
-    let a = {};
-    s && (a.Authorization = `token ${s}`);
-    let r = await fetch("nightly" === t ? "https://api.github.com/repos/LazuliKao/luci-theme-fluent/releases/tags/nightly" : "https://api.github.com/repos/LazuliKao/luci-theme-fluent/releases/latest", {
+    let r = `https://api.github.com/repos/jxstarthxr/luci-theme-fortiwifi-30e/${"nightly" === t ? "releases/tags/nightly" : "releases/latest"}`, a = {
+        Accept: "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28"
+    };
+    s && (a.Authorization = `Bearer ${s}`);
+    let n = await fetch(r, {
         headers: a
-    }), n = await r.json();
-    if (!r.ok) {
-        let t = n?.message ? `: ${n.message}` : "";
-        throw new GitHubAPIError(`GitHub API returned status ${r.status}${t}`, r.status);
+    }), i = await n.json();
+    if (!n.ok) {
+        let t = i?.message ? `: ${i.message}` : "";
+        throw new GitHubAPIError(`GitHub API returned status ${n.status}${t}`, n.status);
     }
-    let i = n.assets || [], o = null, u = [];
-    for (let t of i){
+    let o = i.assets || [], c = null, u = [];
+    for (let t of o){
         let l = String(t.name || "");
-        "apk" === e && /^luci-theme-fluent-[0-9].*\.apk$/.test(l) ? o = t : "ipk" === e && /^luci-theme-fluent_[^/]+\.ipk$/.test(l) && (o = t);
+        "apk" === e && /^luci-theme-fluent-[0-9].*\.apk$/.test(l) ? c = t : "ipk" === e && /^luci-theme-fluent_[^/]+\.ipk$/.test(l) && (c = t);
     }
     for (let t of l){
-        let l = matchI18nAsset(i, t, e);
+        let l = matchI18nAsset(o, t, e);
         l && !u.includes(l) && u.push(l);
     }
     return {
-        tag_name: String(n.tag_name || ""),
-        published_at: String(n.published_at || ""),
-        body: String(n.body || ""),
-        html_url: String(n.html_url || ""),
-        package_asset: o,
+        tag_name: String(i.tag_name || ""),
+        published_at: String(i.published_at || ""),
+        body: String(i.body || ""),
+        html_url: String(i.html_url || ""),
+        package_asset: c,
         i18n_assets: u
     };
 }
 
 ;// CONCATENATED MODULE: ./web/resources/view/fluent-config/tabs/about.tsx
 
-let about_l = L.form, about_n = "https://ghfast.top/";
+let about_l = L.form, about_r = "https://ghfast.top/";
 
-let about_u = about_l.DummyValue.extend({
-    renderWidget: (l, u, p)=>{
-        let h = "1.0.1", b = "ipk", f = [], g = jsxs("div", {
+let about_h = about_l.DummyValue.extend({
+    renderWidget: (l, h, f)=>{
+        let b = "1.0.1", g = "ipk", y = [], m = jsxs("div", {
             class: "fluent-about-logo",
             children: [
                 jsx("img", {
                     src: `${L.media()}/img/fluent.svg`,
-                    alt: "Fluent Theme Logo"
+                    alt: "FortiGate Community Theme Logo"
                 }),
                 jsx("h2", {
-                    children: "Fluent Theme"
+                    children: "FortiGate Community Theme"
                 }),
                 jsx("p", {
                     class: "fluent-about-subtitle",
-                    children: _("Fluent Design 2 theme for LuCI")
+                    children: _("Unofficial FortiWiFi 30E community theme for LuCI")
+                }),
+                jsx("p", {
+                    class: "fluent-about-subtitle",
+                    children: _("Not affiliated with or endorsed by Fortinet. Fortinet, FortiGate, and FortiWiFi are trademarks of Fortinet, Inc.")
                 })
             ]
-        }), y = jsxs("div", {
+        }), w = jsxs("div", {
             class: "fluent-about-details",
             children: [
                 jsxs("div", {
@@ -199,7 +215,7 @@ let about_u = about_l.DummyValue.extend({
                             ]
                         }),
                         jsx("span", {
-                            children: "LazuliKao"
+                            children: "jxstarthxr"
                         })
                     ]
                 }),
@@ -244,16 +260,35 @@ let about_u = about_l.DummyValue.extend({
                         }),
                         jsx("span", {
                             children: jsx("a", {
-                                href: "https://github.com/LazuliKao/luci-theme-fluent",
+                                href: "https://github.com/jxstarthxr/luci-theme-fortiwifi-30e",
                                 target: "_blank",
                                 rel: "noreferrer",
                                 children: "GitHub Repository"
                             })
                         })
                     ]
+                }),
+                jsxs("div", {
+                    class: "fluent-about-detail-row",
+                    children: [
+                        jsxs("strong", {
+                            children: [
+                                _("Upstream project"),
+                                ":"
+                            ]
+                        }),
+                        jsx("span", {
+                            children: jsx("a", {
+                                href: "https://github.com/LazuliKao/luci-theme-fluent",
+                                target: "_blank",
+                                rel: "noreferrer",
+                                children: "luci-theme-fluent by LazuliKao"
+                            })
+                        })
+                    ]
                 })
             ]
-        }), m = jsxs("select", {
+        }), k = jsxs("select", {
             class: "cbi-input-select",
             id: "update-channel-select",
             children: [
@@ -266,7 +301,7 @@ let about_u = about_l.DummyValue.extend({
                     children: _("Nightly Channel (Prerelease)")
                 })
             ]
-        }), w = jsxs("select", {
+        }), v = jsxs("select", {
             class: "cbi-input-select",
             id: "update-method-select",
             children: [
@@ -279,11 +314,13 @@ let about_u = about_l.DummyValue.extend({
                     children: _("Backend (GHProxy Acceleration)")
                 })
             ]
-        }), v = jsx("button", {
+        }), x = jsx("button", {
             class: "btn cbi-button cbi-button-action",
             type: "button",
             children: _("Check for updates")
-        }), k = jsxs("div", {
+        });
+        x.disabled = !0;
+        let F = jsxs("div", {
             class: "fluent-update-controls",
             style: "display: flex; gap: 15px; align-items: center; flex-wrap: wrap;",
             children: [
@@ -297,120 +334,121 @@ let about_u = about_l.DummyValue.extend({
                                 ": "
                             ]
                         }),
-                        m
+                        k
                     ]
                 }),
-                v
+                x
             ]
-        }), x = jsx("div", {
+        }), T = jsx("div", {
             class: "fluent-update-status",
             style: "display: none"
-        }), T = jsx("div", {
+        }), C = jsx("div", {
             class: "fluent-progress-bar__fill",
             style: "width: 0%"
-        }), C = jsx("div", {
+        }), $ = jsx("div", {
             class: "fluent-progress-bar",
             style: "display: none",
-            children: T
+            children: C
         }), S = jsx("div", {
             class: "fluent-progress-text",
             style: "display: none"
-        }), $ = jsx("div", {
+        }), E = jsx("div", {
             class: "fluent-update-card",
             style: "display: none"
-        }), F = jsxs("div", {
+        }), A = jsxs("div", {
             class: "fluent-about-manager",
             children: [
-                g,
-                y,
+                m,
+                w,
                 jsx("hr", {
                     class: "fluent-about-divider"
                 }),
                 jsx("h3", {
                     children: _("Software Update")
                 }),
-                k,
-                x,
+                F,
+                T,
+                E,
                 $,
-                C,
                 S
             ]
         }), P = (e, t = "info")=>{
-            dom.content(x, [
+            dom.content(T, [
                 document.createTextNode(e)
-            ]), x.className = `fluent-update-status status-${t}`, x.style.display = "block";
-        }, A = (e, t, a)=>{
-            C.style.display = "block", S.style.display = "block", T.style.width = `${t}%`, T.className = `fluent-progress-bar__fill fill-${e}`, dom.content(S, [
+            ]), T.className = `fluent-update-status status-${t}`, T.style.display = "block";
+        }, z = (e, t, a)=>{
+            $.style.display = "block", S.style.display = "block", C.style.width = `${t}%`, C.className = `fluent-progress-bar__fill fill-${e}`, dom.content(S, [
                 document.createTextNode(`${a} (${t}%)`)
             ]);
-        }, z = ()=>{
-            C.style.display = "none", S.style.display = "none";
+        }, N = ()=>{
+            $.style.display = "none", S.style.display = "none";
         };
         (async ()=>{
             try {
                 let e = await callGetVersion();
-                h = e.version, b = e.pkg_type, f = e.installed_i18n || (e.i18n_zh_cn_installed ? [
+                b = e.version, g = e.pkg_type, y = e.installed_i18n || (e.i18n_zh_cn_installed ? [
                     "zh-cn"
                 ] : []);
-                let t = y.querySelector(".fluent-about-current-version");
-                t && (t.textContent = `v${h}`);
-                let a = y.querySelector(".fluent-about-pkg-type");
-                a && (a.textContent = "apk" === b ? "APK (OpenWrt 25.12+)" : "IPK (OpenWrt 24.10)");
+                let t = w.querySelector(".fluent-about-current-version");
+                t && (t.textContent = `v${b}`);
+                let a = w.querySelector(".fluent-about-pkg-type");
+                a && (a.textContent = "apk" === g ? "APK (OpenWrt 25.12+)" : "IPK (OpenWrt 24.10)"), x.disabled = !1;
             } catch (e) {
                 console.error("Failed to fetch version", e), P(_("Failed to fetch current theme version."), "error");
             }
         })();
-        let N = async (l)=>{
-            let s = m.value;
+        let j = async (l)=>{
+            let d = k.value;
             try {
-                let c = await fetchLatestRelease(s, b, f, l);
-                console.log(c), v.disabled = !1;
-                let u = h.replace(/^v/, "").trim(), p = c.tag_name.replace(/^v/, "").trim(), g = L.naturalCompare(p, u) > 0, y = !g && "nightly" !== s;
-                if (y ? P(_("Your theme is up to date!"), "success") : P(g ? _("A new version is available!") : _("Nightly build available (reinstallation check)."), g ? "warn" : "info"), !c.package_asset) return void P(_("No matching package asset found for your system architecture in this release."), "error");
-                let k = c.body ? c.body : "", x = jsx("button", {
+                let p = await fetchLatestRelease(d, g, y, l);
+                console.log(p), x.disabled = !1;
+                let h = b.replace(/^v/, "").trim(), f = p.tag_name.replace(/^v/, "").trim(), m = L.naturalCompare(f, h) > 0, w = !m && "nightly" !== d;
+                if (w ? P(_("Your theme is up to date!"), "success") : P(m ? _("A new version is available!") : _("Nightly build available (reinstallation check)."), m ? "warn" : "info"), !p.package_asset) return void P(_("No matching package asset found for your package format in this release."), "error");
+                let F = p.body ? p.body : "", T = jsx("button", {
                     class: "btn cbi-button cbi-button-save",
                     type: "button",
                     style: "white-space: nowrap;",
                     children: _("Download and Install")
-                }), T = [
+                }), C = [
                     jsxs("div", {
                         class: "fluent-update-header",
                         children: [
                             jsx("span", {
                                 class: "fluent-update-badge",
-                                children: "nightly" === p ? "Nightly" : `v${p}`
+                                children: "nightly" === f ? "Nightly" : `v${f}`
                             }),
                             jsx("span", {
                                 class: "fluent-update-date",
-                                children: c.published_at.split("T")[0]
+                                children: p.published_at.split("T")[0]
                             })
                         ]
                     })
                 ];
-                k && T.push(jsx("pre", {
+                F && C.push(jsx("pre", {
                     class: "fluent-update-changelog",
-                    children: k
-                })), y || T.push(jsxs("div", {
+                    children: F
+                })), w || C.push(jsxs("div", {
                     class: "fluent-update-footer",
                     style: "display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 15px; flex-wrap: wrap;",
                     children: [
-                        w,
-                        x
+                        v,
+                        T
                     ]
-                })), dom.content($, T), $.style.display = "block", x.addEventListener("click", async ()=>{
-                    let l = c.package_asset;
-                    if (!l) return void P(_("No matching package asset found for your system architecture in this release."), "error");
-                    x.disabled = !0, m.disabled = !0, w.disabled = !0, v.disabled = !0, P(_("Starting update process..."), "info");
-                    let s = c.i18n_assets || [], d = null, u = [];
-                    for (let e of (l.digest?.startsWith("sha256:") ? d = l.digest.replace("sha256:", "") : (console.warn("Unable to determine expected package hash from digest. Skipping verification."), d = "skip"), s))e.digest?.startsWith("sha256:") ? u.push(e.digest.replace("sha256:", "")) : u.push("skip");
-                    let p = async ()=>{
-                        let c = w.value.includes("ghproxy");
-                        P(_("Starting backend download..."), "info"), A("download", 0, _("Downloading on router"));
-                        let p = c ? about_n + l.browser_download_url : l.browser_download_url, h = s.map((e)=>c ? about_n + e.browser_download_url : e.browser_download_url).join(" "), b = await callStartDownload(p, h.split(" ")[0] || "", h);
-                        if (0 !== b.result) throw Error(b.message || "Failed to start router download.");
+                })), dom.content(E, C), E.style.display = "block", T.addEventListener("click", async ()=>{
+                    let l = p.package_asset;
+                    if (!l) return void P(_("No matching package asset found for your package format in this release."), "error");
+                    T.disabled = !0, k.disabled = !0, v.disabled = !0, x.disabled = !0, P(_("Starting update process..."), "info");
+                    let d = p.i18n_assets || [], u = null, h = [];
+                    for (let e of (l.digest?.startsWith("sha256:") ? u = l.digest.replace("sha256:", "") : (console.warn("Unable to determine expected package hash from digest. Skipping verification."), u = "skip"), d))e.digest?.startsWith("sha256:") ? h.push(e.digest.replace("sha256:", "")) : h.push("skip");
+                    let f = async ()=>{
+                        let p = v.value.includes("ghproxy");
+                        if (p && ("skip" === u || h.includes("skip"))) throw Error(_("GHProxy downloads require SHA-256 digests for every package. Use the official GitHub backend for this release."));
+                        P(_("Starting backend download..."), "info"), z("download", 0, _("Downloading on router"));
+                        let f = p ? about_r + l.browser_download_url : l.browser_download_url, b = d.map((e)=>p ? about_r + e.browser_download_url : e.browser_download_url).join(" "), g = await callStartDownload(f, b.split(" ")[0] || "", b);
+                        if (0 !== g.result) throw Error(g.message || "Failed to start router download.");
                         for(;;){
-                            let e = await callCheckDownload(), t = e.size || 0, a = s.reduce((e, t)=>e + (t.size || 0), 0), n = l.size + a, i = n > 0 ? Math.min(Math.round(t / n * 100), 100) : 0;
-                            if (A("download", i, `${_("Downloading on router")} (${(t / 1024).toFixed(0)} / ${(n / 1024).toFixed(0)} KB)`), !e.running) if (0 !== e.code) throw Error("Router background download failed or file is empty.");
+                            let e = await callCheckDownload(), t = e.size || 0, a = d.reduce((e, t)=>e + (t.size || 0), 0), r = l.size + a, i = r > 0 ? Math.min(Math.round(t / r * 100), 100) : 0;
+                            if (z("download", i, `${_("Downloading on router")} (${(t / 1024).toFixed(0)} / ${(r / 1024).toFixed(0)} KB)`), !e.running) if (0 !== e.code) throw Error("Router background download failed or file is empty.");
                             else break;
                             await new Promise((e)=>setTimeout(e, 1000));
                         }
@@ -446,38 +484,39 @@ let about_u = about_l.DummyValue.extend({
                                 ]
                             }));
                         })) throw Error(_("Installation cancelled by user."));
-                        P(_("Triggering installation on router..."), "info"), A("install", 100, _("Installing package"));
-                        let f = await callDoInstall(d, u[0] || "", u.join(" "));
-                        if (0 !== f.result) throw Error(f.message || "Router installation failed.");
-                        let g = jsx("pre", {
+                        P(_("Triggering installation on router..."), "info"), z("install", 100, _("Installing package"));
+                        let y = await callDoInstall(u, h[0] || "", h.join(" "));
+                        if (0 !== y.result) throw Error(y.message || "Router installation failed.");
+                        let m = jsx("pre", {
                             style: "background: var(--fluent-code-bg, #1a1a1a); color: var(--fluent-text, #fff); padding: 10px; border-radius: 4px; font-family: monospace; font-size: 12px; white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto; margin-top: 15px;"
-                        });
-                        (async ()=>{
-                            let e = L.env.ubuspath || "/ubus", t = L.env.sessionid;
-                            for(;;)try {
-                                let a = await fetch(e, {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        jsonrpc: "2.0",
-                                        id: 1,
-                                        method: "call",
-                                        params: [
-                                            t,
-                                            "luci.fluent",
-                                            "get_install_log",
-                                            {}
-                                        ]
-                                    })
-                                }), l = await a.json();
-                                if (l.error) break;
-                                l.result?.[1]?.log && (g.textContent = l.result[1].log, g.scrollTop = g.scrollHeight), await new Promise((e)=>setTimeout(e, 1000));
-                            } catch  {
-                                break;
+                        }), w = !0, k = (async ()=>{
+                            for(; w;){
+                                try {
+                                    let e = await callGetInstallLog();
+                                    e.log && (m.textContent = e.log, m.scrollTop = m.scrollHeight);
+                                } catch  {}
+                                await new Promise((e)=>setTimeout(e, 1000));
                             }
-                        })(), P(_("Theme successfully updated! Reloading RPC service, please refresh the page in 5 seconds."), "success"), A("done", 100, _("Finished")), dom.content($, [
+                        })(), x = 255, F = 0;
+                        try {
+                            for(;;){
+                                await new Promise((e)=>setTimeout(e, 1000));
+                                try {
+                                    let e = await callCheckInstall();
+                                    if (F = 0, e.running) continue;
+                                    x = e.code ?? 255;
+                                    break;
+                                } catch (e) {
+                                    if ((F += 1) >= 15) throw Error(`${_("Unable to confirm the package installation result after RPC restarted")}: ${e instanceof Error ? e.message : String(e)}`);
+                                }
+                            }
+                        } catch (e) {
+                            throw E.appendChild(m), e;
+                        } finally{
+                            w = !1, await k;
+                        }
+                        if (0 !== x) throw E.appendChild(m), Error(_("Router package installation failed. Review the installation log and install the release manually if needed."));
+                        P(_("Theme successfully updated. Reload the web interface to apply the changes."), "success"), z("done", 100, _("Finished")), dom.content(E, [
                             jsxs("div", {
                                 class: "fluent-update-success",
                                 children: [
@@ -487,9 +526,9 @@ let about_u = about_l.DummyValue.extend({
                                     }),
                                     jsx("p", {
                                         style: "text-align: center; margin: 15px 0;",
-                                        children: _("The theme is being installed on your router. The logs are displayed below. Reloading the web interface will apply the changes once RPCD restarts.")
+                                        children: _("The package manager completed successfully. The installation log is displayed below.")
                                     }),
-                                    g,
+                                    m,
                                     jsx("div", {
                                         style: "display: flex; justify-content: center; margin-top: 20px;",
                                         children: jsx("button", {
@@ -507,19 +546,19 @@ let about_u = about_l.DummyValue.extend({
                         ]);
                     };
                     try {
-                        await p();
+                        await f();
                     } catch (e) {
-                        console.error("Update failed", e), P(`${_("Update failed")}: ${e instanceof Error ? e.message : String(e)}`, "error"), x.disabled = !1, x.removeAttribute("disabled"), m.disabled = !1, m.removeAttribute("disabled"), w.disabled = !1, w.removeAttribute("disabled"), v.disabled = !1, v.removeAttribute("disabled"), z();
+                        console.error("Update failed", e), P(`${_("Update failed")}: ${e instanceof Error ? e.message : String(e)}`, "error"), T.disabled = !1, T.removeAttribute("disabled"), k.disabled = !1, k.removeAttribute("disabled"), v.disabled = !1, v.removeAttribute("disabled"), x.disabled = !1, x.removeAttribute("disabled"), N();
                     }
                 });
             } catch (l) {
-                if (v.disabled = !1, console.error("Failed checking updates", l), l instanceof GitHubAPIError && 403 === l.status) {
-                    let n = jsx("input", {
+                if (x.disabled = !1, console.error("Failed checking updates", l), l instanceof GitHubAPIError && 403 === l.status) {
+                    let r = jsx("input", {
                         type: "text",
                         class: "cbi-input-text",
                         style: "width: 100%",
                         placeholder: "ghp_..."
-                    }), r = jsx("p", {
+                    }), n = jsx("p", {
                         children: _("API rate limit exceeded. Please enter a GitHub Token to continue. This token is only used for frontend requests and will not be saved on the router backend.")
                     }), i = jsxs("p", {
                         style: "margin-top: 10px; font-size: 13px; color: var(--fluent-text-secondary);",
@@ -535,16 +574,16 @@ let about_u = about_l.DummyValue.extend({
                             ".",
                             _("The token does NOT require any permissions/scopes to be granted (read-only public access is sufficient).")
                         ]
-                    }), s = jsx("pre", {
+                    }), o = jsx("pre", {
                         style: "margin-top: 10px; margin-bottom: 15px; font-size: 12px; white-space: pre-wrap; word-break: break-word; color: var(--fluent-error-text); background: var(--fluent-card-bg); padding: 8px; border-radius: var(--fluent-border-radius);",
                         children: l instanceof Error ? l.message : String(l)
                     });
                     L.ui.showModal(_("GitHub Token Required"), jsxs(Fragment, {
                         children: [
-                            r,
-                            i,
-                            s,
                             n,
+                            i,
+                            o,
+                            r,
                             jsxs("div", {
                                 class: "right",
                                 children: [
@@ -558,8 +597,8 @@ let about_u = about_l.DummyValue.extend({
                                         type: "button",
                                         class: "btn cbi-button-save",
                                         onclick: ()=>{
-                                            let e = n.value.trim();
-                                            L.ui.hideModal(), e && (P(_("Retrying with token..."), "info"), v.disabled = !0, N(e));
+                                            let e = r.value.trim();
+                                            L.ui.hideModal(), e && (P(_("Retrying with token..."), "info"), x.disabled = !0, j(e));
                                         },
                                         children: _("Submit")
                                     })
@@ -570,21 +609,21 @@ let about_u = about_l.DummyValue.extend({
                 } else P(`${_("Failed to check for updates")}: ${l instanceof Error ? l.message : String(l)}`, "error");
             }
         };
-        return v.addEventListener("click", ()=>{
-            P(_("Checking for updates..."), "info"), v.disabled = !0, $.style.display = "none", z(), N();
-        }), F;
+        return x.addEventListener("click", ()=>{
+            P(_("Checking for updates..."), "info"), x.disabled = !0, E.style.display = "none", N(), j();
+        }), A;
     }
 });
 const registerAboutTab = (e)=>{
-    e.tab("about", _("About")), e.taboption("about", about_u, "_about_mgr");
+    e.tab("about", _("About")), e.taboption("about", about_h, "_about_mgr");
 };
 
 ;// CONCATENATED MODULE: ./web/resources/fluent-defaults.ts
 const FLUENT_DEFAULTS = {
     mode: "auto",
-    primary: "#0078d4",
-    dark_primary: "#4da6ff",
-    progressbar_font: "#2e2b60",
+    primary: "#f4511e",
+    dark_primary: "#ff7043",
+    progressbar_font: "#3d170c",
     dark_progressbar_font: "#d6d9e5",
     page_bg: "#fafafa",
     card_bg: "#ffffff",
@@ -738,7 +777,7 @@ let advanced_e = L.form;
 const registerAdvancedTab = (d)=>{
     d.tab("advanced", _("Advanced"), _("Adjust layout, typography, transition timing, shadows, and inject custom CSS variables or rules when the built-in controls are not enough."));
     {
-        let o = d.taboption("advanced", advanced_e.Value, "font_size", _("Base font size"), _("Sets the base interface font size in pixels. Most theme text scales from this value through the Fluent CSS variables. Recommended range: 12-18px."));
+        let o = d.taboption("advanced", advanced_e.Value, "font_size", _("Base font size"), _("Sets the base interface font size in pixels. Most theme text scales from this value through the theme CSS variables. Recommended range: 12-18px."));
         o.datatype = "range(12,18)", o.default = FLUENT_DEFAULTS.font_size, omitDefaultValue(o), o.placeholder = FLUENT_DEFAULTS.font_size;
     }
     {
@@ -750,7 +789,7 @@ const registerAdvancedTab = (d)=>{
         o.datatype = "range(40,96)", o.default = FLUENT_DEFAULTS.header_height, omitDefaultValue(o), o.placeholder = FLUENT_DEFAULTS.header_height;
     }
     {
-        let o = d.taboption("advanced", advanced_e.ListValue, "border_radius", _("Corner radius"), _("Controls the shared Fluent corner radius tokens used by cards, buttons, inputs, and related UI surfaces."));
+        let o = d.taboption("advanced", advanced_e.ListValue, "border_radius", _("Corner radius"), _("Controls the shared corner radius tokens used by cards, buttons, inputs, and related UI surfaces."));
         o.value("0", _("Square (0px)")), o.value("2", _("Small (2px)")), o.value("4", _("Medium (4px)")), o.value("6", _("Rounded (6px)")), o.value("8", _("Large (8px)")), o.value("12", _("Extra large (12px)")), o.default = FLUENT_DEFAULTS.border_radius, omitDefaultValue(o);
     }
     {
@@ -758,11 +797,11 @@ const registerAdvancedTab = (d)=>{
         o.value("none", _("None")), o.value("small", _("Small")), o.value("medium", _("Medium")), o.value("large", _("Large")), o.default = FLUENT_DEFAULTS.card_shadow, omitDefaultValue(o);
     }
     {
-        let o = d.taboption("advanced", advanced_e.ListValue, "transition_speed", _("Theme transition speed"), _("Controls the shared Fluent transition timing used by menu, header, and other theme animations."));
+        let o = d.taboption("advanced", advanced_e.ListValue, "transition_speed", _("Theme transition speed"), _("Controls the shared transition timing used by menu, header, and other theme animations."));
         o.value("fast", _("Fast")), o.value("normal", _("Normal")), o.value("slow", _("Slow")), o.value("none", _("Disabled")), o.default = FLUENT_DEFAULTS.transition_speed, omitDefaultValue(o);
     }
     {
-        let o = d.taboption("advanced", advanced_e.TextValue, "custom_css", _("Custom CSS"), _("Optional raw CSS injected into the Fluent header template. Use this for extra --fluent-* variable overrides or page-specific tweaks that are not exposed as dedicated options."));
+        let o = d.taboption("advanced", advanced_e.TextValue, "custom_css", _("Custom CSS"), _("Optional raw CSS injected into the theme header template. Use this for extra --fluent-* variable overrides or page-specific tweaks that are not exposed as dedicated options."));
         o.default = FLUENT_DEFAULTS.custom_css, omitDefaultValue(o), o.rmempty = !0, o.rows = 12, o.wrap = "off", o.placeholder = ":root {\n  --fluent-sidebar-width: 280px;\n  --fluent-card-shadow: none;\n}";
     }
 };
@@ -782,7 +821,7 @@ const registerAnimationTab = (i)=>{
         o.default = fluentFlagDefault(FLUENT_DEFAULTS.tab_animation) ? o.enabled : o.disabled, omitDefaultValue(o);
     }
     {
-        let o = i.taboption("animation", animation_e.Flag, "prefers_reduced_motion", _("Respect reduced-motion preference"), _("When enabled, Fluent animations follow the browser or operating system reduced-motion preference."));
+        let o = i.taboption("animation", animation_e.Flag, "prefers_reduced_motion", _("Respect reduced-motion preference"), _("When enabled, theme animations follow the browser or operating system reduced-motion preference."));
         o.default = fluentFlagDefault(FLUENT_DEFAULTS.prefers_reduced_motion) ? o.enabled : o.disabled, omitDefaultValue(o);
     }
     {
@@ -801,45 +840,45 @@ let colors_r = L.form;
 
 const registerColorsTab = (d)=>{
     d.tab("colors", _("Colors"));
-    let l = createModeSubtabs(d, "colors", "colors_mode_tabs");
+    let i = createModeSubtabs(d, "colors", "colors_mode_tabs");
     {
-        let o = l.taboption("light", colors_r.Value, "primary", _("Accent color"), _("HEX color used as the primary Fluent accent when the interface is rendered in light mode."));
+        let o = i.taboption("light", colors_r.Value, "primary", _("Accent color"), _("HEX color used as the primary FortiGate accent when the interface is rendered in light mode."));
         o.default = FLUENT_DEFAULTS.primary, omitDefaultValue(o), configureHexColorValue(o, "primary");
     }
     {
-        let o = l.taboption("light", colors_r.Value, "progressbar_font", _("Progress bar text color"), _("HEX color used for progress-bar labels while the interface is rendered in light mode."));
+        let o = i.taboption("light", colors_r.Value, "progressbar_font", _("Progress bar text color"), _("HEX color used for progress-bar labels while the interface is rendered in light mode."));
         o.default = FLUENT_DEFAULTS.progressbar_font, omitDefaultValue(o), configureHexColorValue(o, "progressbar_font");
     }
     {
-        let o = l.taboption("light", colors_r.Value, "page_bg", _("Page background"), _("HEX color used for the main page background in light mode."));
+        let o = i.taboption("light", colors_r.Value, "page_bg", _("Page background"), _("HEX color used for the main page background in light mode."));
         o.default = FLUENT_DEFAULTS.page_bg, omitDefaultValue(o), configureHexColorValue(o, "page_bg");
     }
     {
-        let o = l.taboption("light", colors_r.Value, "card_bg", _("Card background"), _("HEX color used for container/card elements in light mode."));
+        let o = i.taboption("light", colors_r.Value, "card_bg", _("Card background"), _("HEX color used for container/card elements in light mode."));
         o.default = FLUENT_DEFAULTS.card_bg, omitDefaultValue(o), configureHexColorValue(o, "card_bg");
     }
     {
-        let o = l.taboption("light", colors_r.Value, "sidebar_bg", _("Sidebar background"), _("HEX color used for the navigation sidebar in light mode."));
+        let o = i.taboption("light", colors_r.Value, "sidebar_bg", _("Sidebar background"), _("HEX color used for the navigation sidebar in light mode."));
         o.default = FLUENT_DEFAULTS.sidebar_bg, omitDefaultValue(o), configureHexColorValue(o, "sidebar_bg");
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_primary", _("Accent color"), _("HEX color used as the primary Fluent accent when the interface is rendered in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_primary", _("Accent color"), _("HEX color used as the primary FortiGate accent when the interface is rendered in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_primary, omitDefaultValue(o), configureHexColorValue(o, "dark_primary", !0);
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_progressbar_font", _("Progress bar text color"), _("HEX color used for progress-bar labels while the interface is rendered in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_progressbar_font", _("Progress bar text color"), _("HEX color used for progress-bar labels while the interface is rendered in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_progressbar_font, omitDefaultValue(o), configureHexColorValue(o, "dark_progressbar_font", !0);
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_page_bg", _("Page background"), _("HEX color used for the main page background in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_page_bg", _("Page background"), _("HEX color used for the main page background in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_page_bg, omitDefaultValue(o), configureHexColorValue(o, "dark_page_bg", !0);
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_card_bg", _("Card background"), _("HEX color used for container/card elements in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_card_bg", _("Card background"), _("HEX color used for container/card elements in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_card_bg, omitDefaultValue(o), configureHexColorValue(o, "dark_card_bg", !0);
     }
     {
-        let o = l.taboption("dark", colors_r.Value, "dark_sidebar_bg", _("Sidebar background"), _("HEX color used for the navigation sidebar in dark mode."));
+        let o = i.taboption("dark", colors_r.Value, "dark_sidebar_bg", _("Sidebar background"), _("HEX color used for the navigation sidebar in dark mode."));
         o.default = FLUENT_DEFAULTS.dark_sidebar_bg, omitDefaultValue(o), configureHexColorValue(o, "dark_sidebar_bg", !0);
     }
 };
@@ -848,30 +887,30 @@ const registerColorsTab = (d)=>{
 let general_e = L.form;
 
 
-const registerGeneralTab = (l, r = !0)=>{
-    l.tab("general", _("General"));
+const registerGeneralTab = (r, l = !0)=>{
+    r.tab("general", _("General"));
     {
-        let o = l.taboption("general", general_e.ListValue, "mode", _("Color mode"));
-        o.value("auto", _("Follow system")), o.value("light", _("Force light mode")), o.value("dark", _("Force dark mode")), o.default = FLUENT_DEFAULTS.mode, omitDefaultValue(o), o.description = _("Use the system/browser preference, or always render the Fluent theme in a fixed light or dark palette.");
+        let o = r.taboption("general", general_e.ListValue, "mode", _("Color mode"));
+        o.value("auto", _("Follow system")), o.value("light", _("Force light mode")), o.value("dark", _("Force dark mode")), o.default = FLUENT_DEFAULTS.mode, omitDefaultValue(o), o.description = _("Use the system/browser preference, or always render the FortiGate theme in a fixed light or dark palette.");
     }
     {
-        let o = l.taboption("general", general_e.ListValue, "direction_mode", _("Text direction"));
+        let o = r.taboption("general", general_e.ListValue, "direction_mode", _("Text direction"));
         o.value("auto", _("Automatic (Arabic/Persian locales only)")), o.value("rtl", _("Force RTL")), o.value("ltr", _("Force LTR")), o.default = FLUENT_DEFAULTS.direction_mode, omitDefaultValue(o), o.description = _("Choose the document direction for authenticated and login pages. Automatic mode resolves Arabic and Persian locale codes (ar, ar_*, ar-*, fa, fa_*, fa-*) to RTL and falls back to LTR for missing or unrecognized locales.");
     }
     {
-        let o = l.taboption("general", general_e.ListValue, "font_weight", _("Navigation font weight"));
+        let o = r.taboption("general", general_e.ListValue, "font_weight", _("Navigation font weight"));
         o.value("normal", _("Normal")), o.value("600", _("Semibold")), o.default = FLUENT_DEFAULTS.font_weight, omitDefaultValue(o), o.description = _("Controls the font weight used by main navigation labels and related theme text accents.");
     }
     {
-        let o = l.taboption("general", general_e.ListValue, "control_height", _("Control height"));
+        let o = r.taboption("general", general_e.ListValue, "control_height", _("Control height"));
         o.value("32", _("Compact (32px)")), o.value("42", _("Comfortable (42px)")), o.default = FLUENT_DEFAULTS.control_height, omitDefaultValue(o), o.description = _("Applies to standard buttons, inputs, selects, and similar form controls across the theme.");
     }
-    if (r) {
-        let r = l.taboption("general", general_e.Flag, "custom_select", _("Use Fluent custom select dropdowns"), _("Replace native select elements with the theme's custom dropdown widget."));
-        r.default = fluentFlagDefault(FLUENT_DEFAULTS.custom_select) ? r.enabled : r.disabled, omitDefaultValue(r);
+    if (l) {
+        let l = r.taboption("general", general_e.Flag, "custom_select", _("Use custom select dropdowns"), _("Replace native select elements with the theme's custom dropdown widget."));
+        l.default = fluentFlagDefault(FLUENT_DEFAULTS.custom_select) ? l.enabled : l.disabled, omitDefaultValue(l);
     }
     {
-        let o = l.taboption("general", general_e.ListValue, "progressbar_text_position", _("Progress bar text position"));
+        let o = r.taboption("general", general_e.ListValue, "progressbar_text_position", _("Progress bar text position"));
         o.value("top-start", _("Above bar, start")), o.value("bottom-start", _("Below bar, start")), o.value("top-end", _("Above bar, end")), o.value("bottom-end", _("Below bar, end")), o.default = FLUENT_DEFAULTS.progressbar_text_position, omitDefaultValue(o), o.description = _("Position of progress-bar labels relative to the bar. Start/end alignment follows the text direction (LTR or RTL).");
     }
 };
@@ -1028,7 +1067,7 @@ const registerLoginTab = (e)=>{
     e.tab("login", _("Login page"), _("Customize the login page background, card opacity, and blur radius for light and dark modes."));
     {
         let t = e.taboption("login", login_a.ListValue, "login_bg", "Background source", "Select the background image source for the login page.");
-        t.value("microsoft", "Microsoft dynamic canvas"), t.value("custom", "Custom background"), t.value("bing", "Bing daily wallpaper"), t.default = FLUENT_DEFAULTS.login_bg, omitDefaultValue(t);
+        t.value("microsoft", "FortiGate dynamic canvas"), t.value("custom", "Custom background"), t.value("bing", "Bing daily wallpaper"), t.default = FLUENT_DEFAULTS.login_bg, omitDefaultValue(t);
     }
     e.taboption("login", login_k, "_bg_mgr", "Custom backgrounds", "Upload and manage custom background images for the login page.").depends("login_bg", "custom");
     let t = createModeSubtabs(e, "login", "login_mode_tabs");
@@ -2223,7 +2262,7 @@ let fluent_config_e = L.form, fluent_config_o = L.uci;
 
 
 
-class fluent_config_m extends L.view {
+class fluent_config_l extends L.view {
     load() {
         return Promise.all([
             fluent_config_o.load("fluent"),
@@ -2231,11 +2270,11 @@ class fluent_config_m extends L.view {
         ]);
     }
     render(o) {
-        let [, m] = o, s = new fluent_config_e.Map("fluent", _("Fluent theme settings"), _("Configure color mode, accent colors, layout sizing, animation behavior, login-page appearance, and advanced CSS overrides for luci-theme-fluent.")), u = s.section(fluent_config_e.TypedSection, "global", _("Theme settings"));
-        return u.addremove = !1, u.anonymous = !0, registerGeneralTab(u), registerMenuTab(u, m), registerColorsTab(u), registerAnimationTab(u), registerLoginTab(u), registerAdvancedTab(u), registerAboutTab(u), s.render();
+        let [, l] = o, s = new fluent_config_e.Map("fluent", _("FortiGate theme settings"), _("Configure color mode, accent colors, layout sizing, animation behavior, login-page appearance, and advanced CSS overrides for the FortiGate community theme.")), c = s.section(fluent_config_e.TypedSection, "global", _("Theme settings"));
+        return c.addremove = !1, c.anonymous = !0, registerGeneralTab(c), registerMenuTab(c, l), registerColorsTab(c), registerAnimationTab(c), registerLoginTab(c), registerAdvancedTab(c), registerAboutTab(c), s.render();
     }
 }
-const main = fluent_config_m;
+const main = fluent_config_l;
 
 
 return main;

@@ -12,7 +12,7 @@ export const registerAdvancedTab = (section: LuCI.form.TypedSection): void => {
       form.Value,
       "font_size",
       _("Base font size"),
-      _("Sets the base interface font size in pixels. Most theme text scales from this value through the Fluent CSS variables. Recommended range: 12-18px."),
+      _("Sets the base interface font size in pixels. Most theme text scales from this value through the theme CSS variables. Recommended range: 12-18px."),
     );
     option.datatype = "range(12,18)";
     option.default = FLUENT_DEFAULTS.font_size;
@@ -42,7 +42,7 @@ export const registerAdvancedTab = (section: LuCI.form.TypedSection): void => {
       form.ListValue,
       "border_radius",
       _("Corner radius"),
-      _("Controls the shared Fluent corner radius tokens used by cards, buttons, inputs, and related UI surfaces."),
+      _("Controls the shared corner radius tokens used by cards, buttons, inputs, and related UI surfaces."),
     );
     option.value("0", _("Square (0px)"));
     option.value("2", _("Small (2px)"));
@@ -70,7 +70,7 @@ export const registerAdvancedTab = (section: LuCI.form.TypedSection): void => {
       form.ListValue,
       "transition_speed",
       _("Theme transition speed"),
-      _("Controls the shared Fluent transition timing used by menu, header, and other theme animations."),
+      _("Controls the shared transition timing used by menu, header, and other theme animations."),
     );
     option.value("fast", _("Fast"));
     option.value("normal", _("Normal"));
@@ -86,7 +86,7 @@ export const registerAdvancedTab = (section: LuCI.form.TypedSection): void => {
       form.TextValue,
       "custom_css",
       _("Custom CSS"),
-      _("Optional raw CSS injected into the Fluent header template. Use this for extra --fluent-* variable overrides or page-specific tweaks that are not exposed as dedicated options."),
+      _("Optional raw CSS injected into the theme header template. Use this for extra --fluent-* variable overrides or page-specific tweaks that are not exposed as dedicated options."),
     ) as LuCI.form.TextValue;
     option.default = FLUENT_DEFAULTS.custom_css;
     omitDefaultValue(option);

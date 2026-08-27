@@ -12,7 +12,94 @@ fi
 readonly bg_path="/www/luci-static/fluent/background"
 readonly tmp_path="/tmp/fluent_background.tmp"
 readonly update_pkg="/tmp/fluent-update${PKG_EXT}"
-readonly i18n_pkg="/tmp/fluent-i18n-update${PKG_EXT}"
+readonly update_log="/tmp/fluent-update.log"
+readonly update_pid="/tmp/fluent-update.pid"
+readonly update_status="/tmp/fluent-update.status"
+readonly install_log="/tmp/fluent-install.log"
+readonly install_pid="/tmp/fluent-install.pid"
+readonly install_status="/tmp/fluent-install.status"
+
+valid_background_name() {
+	case "$1" in
+		""|"."|".."|*/*|*\\*|*[!A-Za-z0-9._-]*) return 1 ;;
+		*) return 0 ;;
+	esac
+}
+
+valid_release_url() {
+	case "$1" in
+		https://github.com/jxstarthxr/luci-theme-fortiwifi-30e/releases/download/*) return 0 ;;
+		https://ghfast.top/https://github.com/jxstarthxr/luci-theme-fortiwifi-30e/releases/download/*) return 0 ;;
+		*) return 1 ;;
+	esac
+}
+
+process_is_running() {
+	pid_file="$1"
+	status_file="$2"
+	tracked_pid=""
+	[ -f "$status_file" ] && return 1
+	[ -f "$pid_file" ] && tracked_pid=$(sed -n '1p' "$pid_file")
+	case "$tracked_pid" in
+		""|*[!0-9]*) return 1 ;;
+	esac
+	kill -0 "$tracked_pid" 2>/dev/null
+}
+
+download_file() {
+	url="$1"
+	destination="$2"
+	if command -v uclient-fetch >/dev/null 2>&1; then
+		uclient-fetch -O "$destination" "$url"
+	else
+		wget -O "$destination" "$url"
+	fi
+}
+
+download_worker() {
+	main_url="$1"
+	i18n_urls="$2"
+	result=0
+
+	download_file "$main_url" "$update_pkg" || result=$?
+	idx=1
+	if [ "$result" -eq 0 ]; then
+		for i18n_url in $i18n_urls; do
+			download_file "$i18n_url" "/tmp/fluent-i18n-${idx}${PKG_EXT}" || {
+				result=$?
+				break
+			}
+			idx=$((idx + 1))
+		done
+	fi
+
+	echo "$result" >"$update_status"
+	exit "$result"
+}
+
+install_worker() {
+	sleep 1
+	result=0
+	if command -v apk >/dev/null 2>&1; then
+		apk add --allow-untrusted "$@" || result=$?
+	else
+		opkg install "$@" || result=$?
+	fi
+	rm -f "$@"
+	echo "$result" >"$install_status"
+	/etc/init.d/rpcd restart
+	exit "$result"
+}
+
+case "$1" in
+	"download_worker")
+		download_worker "$2" "$3"
+		;;
+	"install_worker")
+		shift
+		install_worker "$@"
+		;;
+esac
 
 case "$1" in
 	"list")
@@ -42,6 +129,8 @@ case "$1" in
 		json_add_string "i18n_hash" "i18n_hash"
 		json_add_string "i18n_hashes" "i18n_hashes"
 	json_close_object
+	json_add_object "check_install"
+	json_close_object
 	json_add_object "get_install_log"
 	json_close_object
 	json_dump
@@ -60,7 +149,7 @@ case "$1" in
 		json_load "$input"
 		json_get_var filename "filename"
 		json_cleanup
-		if dirname "$filename" | grep -q ".."; then
+		if ! valid_background_name "$filename"; then
 			echo '{ "result": 255 }'
 			exit 255
 		fi
@@ -72,7 +161,7 @@ case "$1" in
 		json_load "$input"
 		json_get_var newname "newname"
 		json_cleanup
-		if dirname "$newname" | grep -q ".."; then
+		if ! valid_background_name "$newname"; then
 			echo '{ "result": 255 }'
 			exit 255
 		fi
@@ -140,53 +229,49 @@ case "$1" in
 		json_get_var i18n_url "i18n_url"
 		json_get_var i18n_urls "i18n_urls"
 		json_cleanup
-
-		rm -f "$update_pkg"
-		rm -f /tmp/fluent-i18n-*
-		rm -f /tmp/fluent-update.log
-		
-		if [ -n "$url" ]; then
-			download_cmd=""
-			if command -v uclient-fetch >/dev/null 2>&1; then
-				download_cmd="uclient-fetch -O $update_pkg \"$url\""
-				urls_to_dl="${i18n_urls:-$i18n_url}"
-				idx=1
-				for u in $urls_to_dl; do
-					download_cmd="$download_cmd && uclient-fetch -O /tmp/fluent-i18n-${idx}${PKG_EXT} \"$u\""
-					idx=$((idx + 1))
-				done
-			else
-				download_cmd="wget -O $update_pkg \"$url\""
-				urls_to_dl="${i18n_urls:-$i18n_url}"
-				idx=1
-				for u in $urls_to_dl; do
-					download_cmd="$download_cmd && wget -O /tmp/fluent-i18n-${idx}${PKG_EXT} \"$u\""
-					idx=$((idx + 1))
-				done
-			fi
-			nohup sh -c "$download_cmd >/tmp/fluent-update.log 2>&1" >/dev/null 2>&1 &
-			echo '{ "result": 0 }'
-		else
-			echo '{ "result": 255, "message": "Missing URL" }'
+		if process_is_running "$update_pid" "$update_status"; then
+			echo '{ "result": 255, "message": "Another theme download is already running" }'
+			exit 255
 		fi
+
+		urls_to_dl="${i18n_urls:-$i18n_url}"
+		if [ -z "$url" ]; then
+			echo '{ "result": 255, "message": "Missing URL" }'
+			exit 255
+		fi
+		if ! valid_release_url "$url"; then
+			echo '{ "result": 255, "message": "Release URL is not allowed" }'
+			exit 255
+		fi
+		for i18n_download_url in $urls_to_dl; do
+			if ! valid_release_url "$i18n_download_url"; then
+				echo '{ "result": 255, "message": "Translation URL is not allowed" }'
+				exit 255
+			fi
+		done
+
+		rm -f "$update_pkg" /tmp/fluent-i18n-* "$update_log" "$update_pid" "$update_status"
+		nohup /usr/libexec/rpcd/luci.fluent download_worker "$url" "$urls_to_dl" >"$update_log" 2>&1 &
+		echo "$!" >"$update_pid"
+		echo '{ "result": 0 }'
 		;;
 	"check_download")
 		json_init
-		size1=$(ls -l $update_pkg 2>/dev/null | awk '{print $5}')
-		size2=$(ls -l /tmp/fluent-i18n-* 2>/dev/null | awk '{sum+=$5} END {print sum}')
-		size=$(( ${size1:-0} + ${size2:-0} ))
+		size=0
+		for downloaded_file in "$update_pkg" /tmp/fluent-i18n-*; do
+			[ -f "$downloaded_file" ] || continue
+			downloaded_size=$(wc -c <"$downloaded_file")
+			size=$((size + downloaded_size))
+		done
 		json_add_int "size" "$size"
-		
-		if pgrep -f "fluent-update" >/dev/null; then
+
+		if process_is_running "$update_pid" "$update_status"; then
 			json_add_boolean "running" 1
 		else
 			json_add_boolean "running" 0
-			if [ "$size" -eq 0 ]; then
-				# If process exited and size is 0, download failed
-				json_add_int "code" 255
-			else
-				json_add_int "code" 0
-			fi
+			download_code=255
+			[ -f "$update_status" ] && download_code=$(sed -n '1p' "$update_status")
+			json_add_int "code" "${download_code:-255}"
 		fi
 		json_dump
 		json_cleanup
@@ -198,6 +283,17 @@ case "$1" in
 		json_get_var i18n_hash "i18n_hash"
 		json_get_var i18n_hashes "i18n_hashes"
 		json_cleanup
+		if process_is_running "$install_pid" "$install_status"; then
+			echo '{ "result": 255, "message": "Another theme installation is already running" }'
+			exit 255
+		fi
+
+		download_code=255
+		[ -f "$update_status" ] && download_code=$(sed -n '1p' "$update_status")
+		if [ "$download_code" != "0" ]; then
+			echo '{ "result": 255, "message": "Theme download did not complete successfully" }'
+			exit 255
+		fi
 
 		if [ -z "$hash" ]; then
 			echo '{ "result": 255, "message": "Missing hash parameter" }'
@@ -222,11 +318,28 @@ case "$1" in
 		fi
 
 		hashes_to_check="${i18n_hashes:-$i18n_hash}"
-		if [ -n "$hashes_to_check" ]; then
+		i18n_file_count=0
+		for target_i18n_pkg in /tmp/fluent-i18n-*; do
+			[ -f "$target_i18n_pkg" ] || continue
+			i18n_file_count=$((i18n_file_count + 1))
+		done
+		i18n_hash_count=0
+		for unused_hash in $hashes_to_check; do
+			i18n_hash_count=$((i18n_hash_count + 1))
+		done
+		if [ "$i18n_hash_count" -ne "$i18n_file_count" ]; then
+			echo '{ "result": 255, "message": "Translation package hash count does not match downloaded files" }'
+			exit 255
+		fi
+		if [ "$i18n_hash_count" -gt 0 ]; then
 			idx=1
 			for h in $hashes_to_check; do
 				target_i18n_pkg="/tmp/fluent-i18n-${idx}${PKG_EXT}"
-				if [ -f "$target_i18n_pkg" ] && [ "$h" != "skip" ]; then
+				if [ ! -f "$target_i18n_pkg" ]; then
+					echo '{ "result": 255, "message": "Translation package file not found" }'
+					exit 255
+				fi
+				if [ "$h" != "skip" ]; then
 					if ! echo "$h" | grep -qE '^[0-9a-fA-F]{64}$'; then
 						echo '{ "result": 255, "message": "Invalid i18n hash parameter" }'
 						exit 255
@@ -241,27 +354,35 @@ case "$1" in
 			done
 		fi
 
-		install_cmd=""
-		pkgs="$update_pkg"
-		i18n_files=$(ls /tmp/fluent-i18n-* 2>/dev/null)
-		if [ -n "$i18n_files" ]; then
-			pkgs="$pkgs $i18n_files"
-		fi
+		set -- "$update_pkg"
+		for i18n_file in /tmp/fluent-i18n-*; do
+			[ -f "$i18n_file" ] || continue
+			set -- "$@" "$i18n_file"
+		done
 
-		if command -v apk >/dev/null 2>&1; then
-			install_cmd="apk add --allow-untrusted $pkgs"
-		else
-			install_cmd="opkg install $pkgs"
-		fi
-
-		nohup sh -c "sleep 1 && $install_cmd > /tmp/fluent-install.log 2>&1 ; rm -f $pkgs ; /etc/init.d/rpcd restart" >/dev/null 2>&1 &
+		rm -f "$install_log" "$install_pid" "$install_status"
+		nohup /usr/libexec/rpcd/luci.fluent install_worker "$@" >"$install_log" 2>&1 &
+		echo "$!" >"$install_pid"
 
 		echo '{ "result": 0 }'
 		;;
+	"check_install")
+		json_init
+		if process_is_running "$install_pid" "$install_status"; then
+			json_add_boolean "running" 1
+		else
+			json_add_boolean "running" 0
+			install_code=255
+			[ -f "$install_status" ] && install_code=$(sed -n '1p' "$install_status")
+			json_add_int "code" "${install_code:-255}"
+		fi
+		json_dump
+		json_cleanup
+		;;
 	"get_install_log")
 		json_init
-		if [ -f "/tmp/fluent-install.log" ]; then
-			json_add_string "log" "$(cat /tmp/fluent-install.log)"
+		if [ -f "$install_log" ]; then
+			json_add_string "log" "$(cat "$install_log")"
 		else
 			json_add_string "log" ""
 		fi
@@ -271,4 +392,3 @@ case "$1" in
 	esac
 	;;
 esac
-

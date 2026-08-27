@@ -1,6 +1,7 @@
 #!/bin/sh
+uci -q delete luci.themes.Fluent
 uci batch <<EOF
-set luci.themes.Fluent=/luci-static/fluent
+set luci.themes.FortiGate=/luci-static/fluent
 commit luci
 EOF
 

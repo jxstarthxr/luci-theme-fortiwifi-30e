@@ -1,5 +1,6 @@
 {
-  "name": "OpenWrt",
+  "name": "FortiGate Community Theme",
+  "short_name": "FortiGate",
   "icons": [
     {
       "src": "/luci-static/fluent/icon/icon-192.png",

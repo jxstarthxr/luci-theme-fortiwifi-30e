@@ -205,7 +205,7 @@ export const registerLoginTab = (section: LuCI.form.TypedSection): void => {
 
   {
     const option = section.taboption("login", form.ListValue, "login_bg", "Background source", "Select the background image source for the login page.");
-    option.value("microsoft", "Microsoft dynamic canvas");
+    option.value("microsoft", "FortiGate dynamic canvas");
     option.value("custom", "Custom background");
     option.value("bing", "Bing daily wallpaper");
     option.default = FLUENT_DEFAULTS.login_bg;

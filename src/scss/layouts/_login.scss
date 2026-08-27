@@ -1,5 +1,5 @@
 // Layouts - Login Page
-// Microsoft-style Login Page Design for FluentUI 2
+// FortiGate-inspired Login Page Design
 @use "../icons" as *;
 @use "../mixins" as *;
 
@@ -42,8 +42,8 @@ body.login-page {
   overflow: hidden !important;
   box-sizing: border-box !important;
 
-  // Microsoft-style radial gradient background
-  background: radial-gradient(circle at 50% 50%, #f3f4f6 0%, #d1d5db 100%) !important;
+  // Warm neutral fallback used before the dynamic canvas is ready
+  background: radial-gradient(circle at 50% 50%, #fff2ec 0%, #d8d1ce 100%) !important;
 
   // ============================================================
   // BACKGROUND LAYERS (Static Image / Video)
@@ -129,7 +129,7 @@ body.login-page {
     box-sizing: border-box !important;
 
     // ============================================================
-    // LOGIN FORM - Microsoft Sign-In Card
+    // LOGIN FORM - Sign-In Card
     // ============================================================
     .login-form {
       display: flex !important;
@@ -140,7 +140,7 @@ body.login-page {
       box-sizing: border-box !important;
       position: relative !important;
 
-      // Microsoft sign-in card token alignment
+      // Frosted sign-in card surface
       background: color-mix(in srgb, var(--fluent-bg-card) calc(var(--fluent-blur-opacity) * 100%), transparent) !important;
       border: 1px solid var(--fluent-border) !important;
       border-radius: 12px !important;
@@ -228,7 +228,7 @@ body.login-page {
       // ============================================================
       .login-title {
         font-family: var(--fluent-font-family) !important;
-        font-size: 24px !important; // Microsoft H1
+        font-size: 24px !important;
         font-weight: var(--fluent-font-weight-semibold) !important;
         color: var(--fluent-text) !important;
         margin: 0 0 10px 0 !important;
@@ -315,7 +315,7 @@ body.login-page {
           }
         }
 
-        // ERROR BOX (Microsoft style)
+        // ERROR BOX
         .errorbox {
           position: relative !important;
           padding: 0 !important;
@@ -339,7 +339,7 @@ body.login-page {
             display: none !important;
           }
 
-          // Warning icon (Microsoft-style red circle with white exclamation point)
+          // Warning icon (red circle with white exclamation point)
           &::after {
             content: "" !important;
             position: absolute !important;

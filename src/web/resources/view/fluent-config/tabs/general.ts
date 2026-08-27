@@ -13,7 +13,7 @@ export const registerGeneralTab = (section: LuCI.form.TypedSection, includeCusto
     option.value("dark", _("Force dark mode"));
     option.default = FLUENT_DEFAULTS.mode;
     omitDefaultValue(option);
-    option.description = _("Use the system/browser preference, or always render the Fluent theme in a fixed light or dark palette.");
+    option.description = _("Use the system/browser preference, or always render the FortiGate theme in a fixed light or dark palette.");
   }
 
   {
@@ -47,7 +47,7 @@ export const registerGeneralTab = (section: LuCI.form.TypedSection, includeCusto
   }
 
   if (includeCustomSelect) {
-    const option = section.taboption("general", form.Flag, "custom_select", _("Use Fluent custom select dropdowns"), _("Replace native select elements with the theme's custom dropdown widget."));
+    const option = section.taboption("general", form.Flag, "custom_select", _("Use custom select dropdowns"), _("Replace native select elements with the theme's custom dropdown widget."));
     option.default = fluentFlagDefault(FLUENT_DEFAULTS.custom_select) ? option.enabled : option.disabled;
     omitDefaultValue(option);
   }
