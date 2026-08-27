@@ -179,15 +179,15 @@ async function fetchLatestRelease(t, e, l = [], s) {
 
 ;// CONCATENATED MODULE: ./web/resources/view/fluent-config/tabs/about.tsx
 
-let about_l = L.form, about_r = "https://ghfast.top/";
+let about_r = L.form, about_l = "https://ghfast.top/";
 
-let about_h = about_l.DummyValue.extend({
-    renderWidget: (l, h, f)=>{
+let about_h = about_r.DummyValue.extend({
+    renderWidget: (r, h, f)=>{
         let b = "1.0.1", g = "ipk", y = [], m = jsxs("div", {
             class: "fluent-about-logo",
             children: [
                 jsx("img", {
-                    src: `${L.media()}/img/fluent.svg`,
+                    src: `${L.media()}/img/fluent.svg?v=fortigate`,
                     alt: "FortiGate Community Theme Logo"
                 }),
                 jsx("h2", {
@@ -273,7 +273,7 @@ let about_h = about_l.DummyValue.extend({
                     children: [
                         jsxs("strong", {
                             children: [
-                                _("Upstream project"),
+                                _("License / upstream credit"),
                                 ":"
                             ]
                         }),
@@ -282,7 +282,7 @@ let about_h = about_l.DummyValue.extend({
                                 href: "https://github.com/LazuliKao/luci-theme-fluent",
                                 target: "_blank",
                                 rel: "noreferrer",
-                                children: "luci-theme-fluent by LazuliKao"
+                                children: "Original luci-theme-fluent project (Apache-2.0)"
                             })
                         })
                     ]
@@ -352,10 +352,10 @@ let about_h = about_l.DummyValue.extend({
         }), S = jsx("div", {
             class: "fluent-progress-text",
             style: "display: none"
-        }), E = jsx("div", {
+        }), A = jsx("div", {
             class: "fluent-update-card",
             style: "display: none"
-        }), A = jsxs("div", {
+        }), E = jsxs("div", {
             class: "fluent-about-manager",
             children: [
                 m,
@@ -368,7 +368,7 @@ let about_h = about_l.DummyValue.extend({
                 }),
                 F,
                 T,
-                E,
+                A,
                 $,
                 S
             ]
@@ -376,11 +376,11 @@ let about_h = about_l.DummyValue.extend({
             dom.content(T, [
                 document.createTextNode(e)
             ]), T.className = `fluent-update-status status-${t}`, T.style.display = "block";
-        }, z = (e, t, a)=>{
+        }, N = (e, t, a)=>{
             $.style.display = "block", S.style.display = "block", C.style.width = `${t}%`, C.className = `fluent-progress-bar__fill fill-${e}`, dom.content(S, [
                 document.createTextNode(`${a} (${t}%)`)
             ]);
-        }, N = ()=>{
+        }, j = ()=>{
             $.style.display = "none", S.style.display = "none";
         };
         (async ()=>{
@@ -397,10 +397,10 @@ let about_h = about_l.DummyValue.extend({
                 console.error("Failed to fetch version", e), P(_("Failed to fetch current theme version."), "error");
             }
         })();
-        let j = async (l)=>{
+        let z = async (r)=>{
             let d = k.value;
             try {
-                let p = await fetchLatestRelease(d, g, y, l);
+                let p = await fetchLatestRelease(d, g, y, r);
                 console.log(p), x.disabled = !1;
                 let h = b.replace(/^v/, "").trim(), f = p.tag_name.replace(/^v/, "").trim(), m = L.naturalCompare(f, h) > 0, w = !m && "nightly" !== d;
                 if (w ? P(_("Your theme is up to date!"), "success") : P(m ? _("A new version is available!") : _("Nightly build available (reinstallation check)."), m ? "warn" : "info"), !p.package_asset) return void P(_("No matching package asset found for your package format in this release."), "error");
@@ -434,25 +434,25 @@ let about_h = about_l.DummyValue.extend({
                         v,
                         T
                     ]
-                })), dom.content(E, C), E.style.display = "block", T.addEventListener("click", async ()=>{
-                    let l = p.package_asset;
-                    if (!l) return void P(_("No matching package asset found for your package format in this release."), "error");
+                })), dom.content(A, C), A.style.display = "block", T.addEventListener("click", async ()=>{
+                    let r = p.package_asset;
+                    if (!r) return void P(_("No matching package asset found for your package format in this release."), "error");
                     T.disabled = !0, k.disabled = !0, v.disabled = !0, x.disabled = !0, P(_("Starting update process..."), "info");
                     let d = p.i18n_assets || [], u = null, h = [];
-                    for (let e of (l.digest?.startsWith("sha256:") ? u = l.digest.replace("sha256:", "") : (console.warn("Unable to determine expected package hash from digest. Skipping verification."), u = "skip"), d))e.digest?.startsWith("sha256:") ? h.push(e.digest.replace("sha256:", "")) : h.push("skip");
+                    for (let e of (r.digest?.startsWith("sha256:") ? u = r.digest.replace("sha256:", "") : (console.warn("Unable to determine expected package hash from digest. Skipping verification."), u = "skip"), d))e.digest?.startsWith("sha256:") ? h.push(e.digest.replace("sha256:", "")) : h.push("skip");
                     let f = async ()=>{
                         let p = v.value.includes("ghproxy");
                         if (p && ("skip" === u || h.includes("skip"))) throw Error(_("GHProxy downloads require SHA-256 digests for every package. Use the official GitHub backend for this release."));
-                        P(_("Starting backend download..."), "info"), z("download", 0, _("Downloading on router"));
-                        let f = p ? about_r + l.browser_download_url : l.browser_download_url, b = d.map((e)=>p ? about_r + e.browser_download_url : e.browser_download_url).join(" "), g = await callStartDownload(f, b.split(" ")[0] || "", b);
+                        P(_("Starting backend download..."), "info"), N("download", 0, _("Downloading on router"));
+                        let f = p ? about_l + r.browser_download_url : r.browser_download_url, b = d.map((e)=>p ? about_l + e.browser_download_url : e.browser_download_url).join(" "), g = await callStartDownload(f, b.split(" ")[0] || "", b);
                         if (0 !== g.result) throw Error(g.message || "Failed to start router download.");
                         for(;;){
-                            let e = await callCheckDownload(), t = e.size || 0, a = d.reduce((e, t)=>e + (t.size || 0), 0), r = l.size + a, i = r > 0 ? Math.min(Math.round(t / r * 100), 100) : 0;
-                            if (z("download", i, `${_("Downloading on router")} (${(t / 1024).toFixed(0)} / ${(r / 1024).toFixed(0)} KB)`), !e.running) if (0 !== e.code) throw Error("Router background download failed or file is empty.");
+                            let e = await callCheckDownload(), t = e.size || 0, a = d.reduce((e, t)=>e + (t.size || 0), 0), l = r.size + a, i = l > 0 ? Math.min(Math.round(t / l * 100), 100) : 0;
+                            if (N("download", i, `${_("Downloading on router")} (${(t / 1024).toFixed(0)} / ${(l / 1024).toFixed(0)} KB)`), !e.running) if (0 !== e.code) throw Error("Router background download failed or file is empty.");
                             else break;
                             await new Promise((e)=>setTimeout(e, 1000));
                         }
-                        if (!await new Promise((l)=>{
+                        if (!await new Promise((r)=>{
                             L.ui.showModal(_("Confirm Installation"), jsxs(Fragment, {
                                 children: [
                                     jsx("div", {
@@ -467,7 +467,7 @@ let about_h = about_l.DummyValue.extend({
                                                 type: "button",
                                                 class: "btn",
                                                 onclick: ()=>{
-                                                    L.ui.hideModal(), l(!1);
+                                                    L.ui.hideModal(), r(!1);
                                                 },
                                                 children: _("Cancel")
                                             }),
@@ -475,7 +475,7 @@ let about_h = about_l.DummyValue.extend({
                                                 type: "button",
                                                 class: "btn cbi-button-action",
                                                 onclick: ()=>{
-                                                    L.ui.hideModal(), l(!0);
+                                                    L.ui.hideModal(), r(!0);
                                                 },
                                                 children: _("Continue")
                                             })
@@ -484,7 +484,7 @@ let about_h = about_l.DummyValue.extend({
                                 ]
                             }));
                         })) throw Error(_("Installation cancelled by user."));
-                        P(_("Triggering installation on router..."), "info"), z("install", 100, _("Installing package"));
+                        P(_("Triggering installation on router..."), "info"), N("install", 100, _("Installing package"));
                         let y = await callDoInstall(u, h[0] || "", h.join(" "));
                         if (0 !== y.result) throw Error(y.message || "Router installation failed.");
                         let m = jsx("pre", {
@@ -511,12 +511,12 @@ let about_h = about_l.DummyValue.extend({
                                 }
                             }
                         } catch (e) {
-                            throw E.appendChild(m), e;
+                            throw A.appendChild(m), e;
                         } finally{
                             w = !1, await k;
                         }
-                        if (0 !== x) throw E.appendChild(m), Error(_("Router package installation failed. Review the installation log and install the release manually if needed."));
-                        P(_("Theme successfully updated. Reload the web interface to apply the changes."), "success"), z("done", 100, _("Finished")), dom.content(E, [
+                        if (0 !== x) throw A.appendChild(m), Error(_("Router package installation failed. Review the installation log and install the release manually if needed."));
+                        P(_("Theme successfully updated. Reload the web interface to apply the changes."), "success"), N("done", 100, _("Finished")), dom.content(A, [
                             jsxs("div", {
                                 class: "fluent-update-success",
                                 children: [
@@ -548,12 +548,12 @@ let about_h = about_l.DummyValue.extend({
                     try {
                         await f();
                     } catch (e) {
-                        console.error("Update failed", e), P(`${_("Update failed")}: ${e instanceof Error ? e.message : String(e)}`, "error"), T.disabled = !1, T.removeAttribute("disabled"), k.disabled = !1, k.removeAttribute("disabled"), v.disabled = !1, v.removeAttribute("disabled"), x.disabled = !1, x.removeAttribute("disabled"), N();
+                        console.error("Update failed", e), P(`${_("Update failed")}: ${e instanceof Error ? e.message : String(e)}`, "error"), T.disabled = !1, T.removeAttribute("disabled"), k.disabled = !1, k.removeAttribute("disabled"), v.disabled = !1, v.removeAttribute("disabled"), x.disabled = !1, x.removeAttribute("disabled"), j();
                     }
                 });
-            } catch (l) {
-                if (x.disabled = !1, console.error("Failed checking updates", l), l instanceof GitHubAPIError && 403 === l.status) {
-                    let r = jsx("input", {
+            } catch (r) {
+                if (x.disabled = !1, console.error("Failed checking updates", r), r instanceof GitHubAPIError && 403 === r.status) {
+                    let l = jsx("input", {
                         type: "text",
                         class: "cbi-input-text",
                         style: "width: 100%",
@@ -576,14 +576,14 @@ let about_h = about_l.DummyValue.extend({
                         ]
                     }), o = jsx("pre", {
                         style: "margin-top: 10px; margin-bottom: 15px; font-size: 12px; white-space: pre-wrap; word-break: break-word; color: var(--fluent-error-text); background: var(--fluent-card-bg); padding: 8px; border-radius: var(--fluent-border-radius);",
-                        children: l instanceof Error ? l.message : String(l)
+                        children: r instanceof Error ? r.message : String(r)
                     });
                     L.ui.showModal(_("GitHub Token Required"), jsxs(Fragment, {
                         children: [
                             n,
                             i,
                             o,
-                            r,
+                            l,
                             jsxs("div", {
                                 class: "right",
                                 children: [
@@ -597,8 +597,8 @@ let about_h = about_l.DummyValue.extend({
                                         type: "button",
                                         class: "btn cbi-button-save",
                                         onclick: ()=>{
-                                            let e = r.value.trim();
-                                            L.ui.hideModal(), e && (P(_("Retrying with token..."), "info"), x.disabled = !0, j(e));
+                                            let e = l.value.trim();
+                                            L.ui.hideModal(), e && (P(_("Retrying with token..."), "info"), x.disabled = !0, z(e));
                                         },
                                         children: _("Submit")
                                     })
@@ -606,12 +606,12 @@ let about_h = about_l.DummyValue.extend({
                             })
                         ]
                     }));
-                } else P(`${_("Failed to check for updates")}: ${l instanceof Error ? l.message : String(l)}`, "error");
+                } else P(`${_("Failed to check for updates")}: ${r instanceof Error ? r.message : String(r)}`, "error");
             }
         };
         return x.addEventListener("click", ()=>{
-            P(_("Checking for updates..."), "info"), x.disabled = !0, E.style.display = "none", N(), j();
-        }), A;
+            P(_("Checking for updates..."), "info"), x.disabled = !0, A.style.display = "none", j(), z();
+        }), E;
     }
 });
 const registerAboutTab = (e)=>{

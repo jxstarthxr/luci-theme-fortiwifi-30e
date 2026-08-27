@@ -346,7 +346,7 @@
           </svg>
         </button>
         <a class="brand" href="/">
-          <img src="{{ media }}/img/fluent.svg" class="icon" />
+          <img src="{{ media }}/img/fluent.svg?v=@VERSION@" class="icon" />
           <span class="brand-text">{{ hostname }}</span>
         </a>
       </div>
