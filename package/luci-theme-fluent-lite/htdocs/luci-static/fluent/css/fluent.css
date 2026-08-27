@@ -636,7 +636,7 @@ div:not([id="view"]) > .spinning:before {
   height: var(--size);
   width: var(--size);
   box-sizing: border-box;
-  border: var(--indicator-size) solid #0078d433;
+  border: var(--indicator-size) solid color-mix(in srgb, var(--fluent-primary) 20%, transparent);
   border-top-color: var(--fluent-primary);
   border-right-color: var(--fluent-primary);
   animation: fluent-spin-swing var(--duration) infinite ease;
@@ -683,7 +683,7 @@ div[id="view"] > .spinning:before {
   height: var(--spinner-size);
   width: var(--spinner-size);
   box-sizing: border-box;
-  border: var(--indicator-size) solid #0078d426;
+  border: var(--indicator-size) solid color-mix(in srgb, var(--fluent-primary) 15%, transparent);
   border-top-color: var(--fluent-primary);
   border-right-color: var(--fluent-primary);
   margin-bottom: var(--fluent-space-sm, 8px);
@@ -12277,7 +12277,7 @@ body > div.main > div.main-right > header [data-theme="dark"] .theme-toggle:hove
   --lightningcss-light: initial;
   --lightningcss-dark: ;
   color-scheme: light;
-  --fluent-primary: #0078d4;
+  --fluent-primary: #f4511e;
   --fluent-primary-hover: var(--fluent-brand-70);
   --fluent-primary-active: var(--fluent-brand-60);
   --fluent-primary-light: var(--fluent-brand-140);
@@ -12388,7 +12388,7 @@ body > div.main > div.main-right > header [data-theme="dark"] .theme-toggle:hove
   --fluent-bg-hover: #383838;
   --fluent-bg-active: #424242;
   --fluent-bg-page: #1a1a1a;
-  --fluent-primary: #4da6ff;
+  --fluent-primary: #ff7043;
   --fluent-primary-hover: var(--fluent-brand-90);
   --fluent-primary-active: var(--fluent-brand-100);
   --fluent-primary-light: color-mix(in srgb, var(--fluent-primary) 15%, #000);
@@ -12472,7 +12472,7 @@ body > div.main > div.main-right > header [data-theme="dark"] .theme-toggle:hove
   --fluent-dropdown-border: var(--fluent-input-border);
   --fluent-dropdown-shadow: 0 8px 16px #00000047, 0 0 2px #0000003d;
   --fluent-dropdown-option-hover: var(--fluent-bg-hover);
-  --fluent-dropdown-option-selected: #4da6ff1a;
+  --fluent-dropdown-option-selected: color-mix(in srgb, var(--fluent-primary) 10%, transparent);
   --fluent-focus-color: #fff;
   --fluent-focus-inner-color: #000;
 }

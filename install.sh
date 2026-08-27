@@ -66,9 +66,14 @@ fetch_release_metadata() {
 }
 
 select_download_url() {
+   case "${PKG_EXT}" in
+      ipk) ASSET_PATTERN="/${PKG_NAME}_[^/]*\\.ipk$" ;;
+      apk) ASSET_PATTERN="/${PKG_NAME}-[0-9][^/]*\\.apk$" ;;
+   esac
+
    DOWNLOAD_URL="$(grep -oE '"browser_download_url":[[:space:]]*"[^"]+"' "${TMP_JSON}" \
       | sed -E 's/.*"([^"]+)"/\1/' \
-       | grep -E "/${PKG_NAME}(_|-)[^/]*\.${PKG_EXT}$" \
+      | grep -E "${ASSET_PATTERN}" \
       | head -n 1 || true)"
 
    [ -n "${DOWNLOAD_URL}" ] || fail "no .${PKG_EXT} asset found for release ${RELEASE_TAG}"

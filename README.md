@@ -62,6 +62,8 @@ The official GitHub backend is recommended. The optional GHProxy route is allowe
 
 GitHub Actions must be enabled for the fork.
 
+For automatic upstream pull requests, open **Settings → Actions → General → Workflow permissions**, select **Read and write permissions**, and enable **Allow GitHub Actions to create and approve pull requests**. The sync workflow cannot change this repository-level setting itself.
+
 - Pushing to `main` runs tests/builds and refreshes the `nightly` prerelease.
 - Pushing a version tag such as `v1.0.10` creates a stable release.
 - The release must contain the package format matching the router before the LuCI updater can offer it.

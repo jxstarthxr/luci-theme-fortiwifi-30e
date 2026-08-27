@@ -263,7 +263,7 @@
       bottom: 0;
       inset-inline-start: 0;
       width: 100%;
-      background-color: var(--fluent-primary, #0078d4);
+      background-color: var(--fluent-primary);
       transform-origin: left;
       animation: fluent-indeterminate-bar 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
     }

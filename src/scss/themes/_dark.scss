@@ -13,7 +13,7 @@
   --fluent-bg-page: #1a1a1a; // Grey10
 
   // Semantic Colors - FluentUI dark overrides
-  --fluent-primary: #4da6ff;
+  --fluent-primary: #ff7043;
   --fluent-primary-hover: var(--fluent-brand-90);
   --fluent-primary-active: var(--fluent-brand-100);
   --fluent-primary-light: color-mix(in srgb, var(--fluent-primary) 15%, #000000);
@@ -128,7 +128,7 @@
   --fluent-dropdown-border: var(--fluent-input-border);
   --fluent-dropdown-shadow: 0 8px 16px rgba(0, 0, 0, 0.28), 0 0 2px rgba(0, 0, 0, 0.24);
   --fluent-dropdown-option-hover: var(--fluent-bg-hover);
-  --fluent-dropdown-option-selected: rgba(77, 166, 255, 0.1);
+  --fluent-dropdown-option-selected: color-mix(in srgb, var(--fluent-primary) 10%, transparent);
 
   // Focus indicator (white in dark mode for visibility)
   --fluent-focus-color: #ffffff;

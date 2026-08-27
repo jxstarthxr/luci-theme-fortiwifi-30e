@@ -83,8 +83,8 @@ body[data-page^="admin-network-interfaceconfig"] {
       --item-label_key-span-color: #525252; // inverts to #adadad
       --item-label_value-span-color: #000000; // inverts to #ffffff
       --app-container_status-label_bg: #cccccc; // inverts to #333333 (Grey20 Status Bg)
-      --item_btn-border: 1px solid #0078d4;
-      --item_btn-color: #0078d4;
+      --item_btn-border: 1px solid var(--fluent-primary);
+      --item_btn-color: var(--fluent-primary);
       --tit-color: #000000; // inverts to #ffffff
       --popup-bg-color: #d6d6d6; // inverts to #292929
       --tag-bg-color: #cccccc; // inverts to #333333

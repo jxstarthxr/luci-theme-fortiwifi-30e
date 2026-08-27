@@ -4,8 +4,8 @@
 @mixin light-theme-tokens {
   color-scheme: light;
 
-  // BRAND / PRIMARY COLORS (BrandBlue)
-  --fluent-primary: #0078d4;
+  // BRAND / PRIMARY COLORS (FortiGate orange default; overridden by UCI)
+  --fluent-primary: #f4511e;
   --fluent-primary-hover: var(--fluent-brand-70);
   --fluent-primary-active: var(--fluent-brand-60);
   --fluent-primary-light: var(--fluent-brand-140);

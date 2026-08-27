@@ -357,7 +357,7 @@ div:not([id="view"]) > .spinning {
     width: var(--size);
     border-radius: 50%;
     box-sizing: border-box;
-    border: var(--indicator-size) solid rgba(0, 120, 212, 0.2);
+    border: var(--indicator-size) solid color-mix(in srgb, var(--fluent-primary) 20%, transparent);
     border-top-color: var(--fluent-primary);
     border-right-color: var(--fluent-primary);
     animation: fluent-spin-swing var(--duration) infinite ease;
@@ -400,7 +400,7 @@ div[id="view"] > .spinning {
     width: var(--spinner-size);
     border-radius: 50%;
     box-sizing: border-box;
-    border: var(--indicator-size) solid rgba(0, 120, 212, 0.15);
+    border: var(--indicator-size) solid color-mix(in srgb, var(--fluent-primary) 15%, transparent);
     border-top-color: var(--fluent-primary);
     border-right-color: var(--fluent-primary);
     animation: fluent-spin-swing-clean 1.5s infinite ease;
