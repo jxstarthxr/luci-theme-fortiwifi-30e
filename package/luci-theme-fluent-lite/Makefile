@@ -31,6 +31,7 @@ define Build/Prepare
 	$(CP) $(TOPDIR)/package/luci-theme-fluent-lite/root/* $(PKG_BUILD_DIR)/root/
 	$(SED) 's/@VERSION@/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/header.ut
 	$(SED) 's/@VERSION@/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/header_login.ut
+	$(SED) 's/@VERSION@/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/sysauth.ut
 endef
 
 define Build/Compile

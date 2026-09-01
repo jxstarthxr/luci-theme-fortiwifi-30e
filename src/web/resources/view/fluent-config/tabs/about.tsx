@@ -1,7 +1,7 @@
 const form = L.form;
 const ghmirror = "https://ghfast.top/"; // Optional release-download acceleration
 
-import { callCheckDownload, callCheckInstall, callDoInstall, callGetInstallLog, callGetVersion, callStartDownload, fetchLatestRelease, GitHubAPIError } from "../../../utils/update";
+import { callCheckDownload, callCheckInstall, callDoInstall, callGetInstallLog, callGetVersion, callStartDownload, fetchLatestRelease, GitHubAPIError, UPDATE_REPOSITORY } from "../../../utils/update";
 
 const CBIAboutManager = form.DummyValue.extend({
   renderWidget: (_section_id: string, _option_index: number, _cfgvalue: string) => {
@@ -13,7 +13,7 @@ const CBIAboutManager = form.DummyValue.extend({
     // UI state elements
     const logoEl = (
       <div class="fluent-about-logo">
-        <img src={`${L.media()}/img/fluent.svg?v=fortigate`} alt="FortiGate Community Theme Logo" />
+        <img src={`${L.media()}/img/fortigate-community.svg?v=community-1`} alt="FortiGate Community Theme emblem" />
         <h2>FortiGate Community Theme</h2>
         <p class="fluent-about-subtitle">{_("Unofficial FortiWiFi 30E community theme for LuCI")}</p>
         <p class="fluent-about-subtitle">{_("Not affiliated with or endorsed by Fortinet. Fortinet, FortiGate, and FortiWiFi are trademarks of Fortinet, Inc.")}</p>
@@ -35,18 +35,18 @@ const CBIAboutManager = form.DummyValue.extend({
           <span class="fluent-about-pkg-type">...</span>
         </div>
         <div class="fluent-about-detail-row">
-          <strong>{_("Source code")}:</strong>
+          <strong>{_("Source and update repository")}:</strong>
           <span>
-            <a href="https://github.com/jxstarthxr/luci-theme-fortiwifi-30e" target="_blank" rel="noreferrer">
-              GitHub Repository
+            <a href={`https://github.com/${UPDATE_REPOSITORY}/releases`} target="_blank" rel="noreferrer">
+              {UPDATE_REPOSITORY}
             </a>
           </span>
         </div>
         <div class="fluent-about-detail-row">
-          <strong>{_("License / upstream credit")}:</strong>
+          <strong>{_("License")}:</strong>
           <span>
-            <a href="https://github.com/LazuliKao/luci-theme-fluent" target="_blank" rel="noreferrer">
-              Original luci-theme-fluent project (Apache-2.0)
+            <a href={`https://github.com/${UPDATE_REPOSITORY}/blob/main/LICENSE`} target="_blank" rel="noreferrer">
+              Apache-2.0
             </a>
           </span>
         </div>

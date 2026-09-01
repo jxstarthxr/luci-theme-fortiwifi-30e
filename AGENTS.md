@@ -1,8 +1,9 @@
-# AGENTS.md - luci-theme-fluent Developer Guide
+# AGENTS.md - FortiWiFi 30E Community Theme Developer Guide
 
-**FluentUI 2 theme for OpenWrt LuCI** — standalone repo (not monorepo). Built with SCSS, ucode templates, CSS custom properties for light/dark/auto theming.
+**FortiGate-inspired community theme for OpenWrt LuCI** — standalone repo (not monorepo). Built with SCSS, ucode templates, CSS custom properties for light/dark/auto theming.
 
-- **Repo**: `LazuliKao/luci-theme-fluent` (separate, not `luci-theme-argon`)
+- **Repo**: `jxstarthxr/luci-theme-fortiwifi-30e`
+- **Original upstream**: `LazuliKao/luci-theme-fluent`
 - **Branch**: `openwrt-24.10`, `main`
 - **Targets**: OpenWrt 24.10.7 (opkg/ipk), OpenWrt 25.12.4 (apk)
 
@@ -41,8 +42,8 @@ luci-theme-fluent/
 │       │   ├── fluent/css/fluent.css       # Compiled CSS (NOT committed? check .gitignore)
 │       │   ├── fluent/background/          # User-uploaded backgrounds
 │       │   ├── fluent/fonts/               # Empty directory
-│       │   ├── fluent/icon/                # favicon.ico, icon-192.png, favicon-32.png, manifest.json
-│       │   ├── fluent/img/fluent.svg       # Theme logo
+│       │   ├── fluent/icon/                # generated community favicon/app icons and manifest.json
+│       │   ├── fluent/img/fortigate-community.svg # Community theme emblem
 │       │   └── resources/                  # Compiled JS: menu-fluent.js, view/fluent-config.js
 │       ├── ucode/template/themes/fluent/   # 6 ucode templates (header.ut, footer.ut, header_login.ut, footer_login.ut, out_header_login.ut, sysauth.ut)
 │       ├── root/

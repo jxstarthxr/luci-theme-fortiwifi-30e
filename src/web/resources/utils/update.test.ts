@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import test from "node:test";
 
 Object.assign(globalThis, {
@@ -10,6 +11,39 @@ Object.assign(globalThis, {
 });
 
 const { fetchLatestRelease, matchI18nAsset, UPDATE_REPOSITORY } = await import("./update");
+
+test("updater repository is pinned to this fork", () => {
+  assert.equal(UPDATE_REPOSITORY, "jxstarthxr/luci-theme-fortiwifi-30e");
+
+  const backend = fs.readFileSync("package/luci-theme-fluent/root/usr/libexec/rpcd/luci.fluent", "utf8");
+  const installer = fs.readFileSync("install.sh", "utf8");
+  assert.match(backend, /github\.com\/jxstarthxr\/luci-theme-fortiwifi-30e\/releases\/download/);
+  assert.doesNotMatch(backend, /github\.com\/LazuliKao\//i);
+  assert.match(installer, /REPO="jxstarthxr\/luci-theme-fortiwifi-30e"/);
+  assert.doesNotMatch(installer, /REPO="LazuliKao\//i);
+});
+
+test("shipped branding uses only the current community emblem", () => {
+  const mediaRoot = "package/luci-theme-fluent/htdocs/luci-static/fluent";
+  const templateRoot = "package/luci-theme-fluent/ucode/template/themes/fluent";
+  assert.equal(fs.existsSync(`${mediaRoot}/img/fortigate-community.svg`), true);
+  assert.equal(fs.existsSync(`${mediaRoot}/img/fluent.svg`), false);
+  assert.equal(fs.existsSync(`${mediaRoot}/icon/fortigate-community-192.png`), true);
+  assert.equal(fs.existsSync(`${mediaRoot}/icon/fortigate-community-32.png`), true);
+  assert.equal(fs.existsSync(`${mediaRoot}/icon/icon-192.png`), false);
+  assert.equal(fs.existsSync(`${mediaRoot}/icon/favicon-32.png`), false);
+
+  for (const template of ["header.ut", "header_login.ut", "sysauth.ut"]) {
+    const contents = fs.readFileSync(`${templateRoot}/${template}`, "utf8");
+    assert.match(contents, /fortigate-community/);
+    assert.doesNotMatch(contents, /fluent\.svg|icon-192\.png|favicon-32\.png/);
+  }
+
+  const aboutSource = fs.readFileSync("src/web/resources/view/fluent-config/tabs/about.tsx", "utf8");
+  const builtSettings = fs.readFileSync("package/luci-theme-fluent/htdocs/luci-static/resources/view/fluent-config.js", "utf8");
+  assert.doesNotMatch(aboutSource, /LazuliKao|Original luci-theme-fluent/i);
+  assert.doesNotMatch(builtSettings, /LazuliKao|Original luci-theme-fluent/i);
+});
 
 const releaseAsset = (name: string, digest = "sha256:abc") => ({
   url: "",

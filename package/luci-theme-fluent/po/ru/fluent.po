@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: luci-theme-fluent\n"
-"POT-Creation-Date: 2026-08-27 17:55-0300\n"
+"POT-Creation-Date: 2026-08-31 16:06-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: TranslateGemma\n"
-"Language-Team: LuCI Theme Fluent\n"
+"Language-Team: FortiGate Community Theme\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -396,6 +396,9 @@ msgstr "Большой"
 msgid "Large (8px)"
 msgstr "Большой (8px)"
 
+msgid "License"
+msgstr ""
+
 msgid "Light mode"
 msgstr "Светлый режим"
 
@@ -621,8 +624,8 @@ msgstr "Маленький (2px)"
 msgid "Software Update"
 msgstr "Обновление ПО"
 
-msgid "Source code"
-msgstr "Исходный код"
+msgid "Source and update repository"
+msgstr ""
 
 msgid "Square (0px)"
 msgstr "Квадрат (0px)"
@@ -705,9 +708,6 @@ msgstr "Обновление не удалось"
 
 msgid "Upgrade Successful!"
 msgstr "Обновление прошло успешно!"
-
-msgid "Upstream project"
-msgstr ""
 
 msgid "Use custom select dropdowns"
 msgstr ""

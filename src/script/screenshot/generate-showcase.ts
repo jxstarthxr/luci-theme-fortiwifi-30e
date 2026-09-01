@@ -36,7 +36,7 @@ const screenshotsDir = path.resolve(screenshotsOutput, ".cache");
 const TRANSLATIONS: Record<string, Record<string, string>> = {
   "zh-Hans": {
     'lang="en-US"': 'lang="zh-Hans"',
-    "<title>luci-theme-fluent Showcase</title>": "<title>luci-theme-fluent 效果图</title>",
+    "<title>FortiWiFi 30E Community Theme Showcase</title>": "<title>FortiWiFi 30E 社区主题效果图</title>",
     "<h1>FortiGate Community Theme for OpenWrt</h1>": "<h1>OpenWrt FortiGate 社区主题</h1>",
     "<p>An unofficial orange security-appliance interface for modern OpenWrt LuCI</p>": "<p>为现代 OpenWrt LuCI 设计的非官方橙色安全设备界面</p>",
     "Multi-device": "多设备适配",
@@ -48,7 +48,7 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
     'alt="Desktop Overview"': 'alt="桌面端概览"',
     'alt="Tablet Overview"': 'alt="平板端概览"',
     'alt="Mobile Overview"': 'alt="移动端概览"',
-    "<title>luci-theme-fluent Mobile Showcase</title>": "<title>luci-theme-fluent 移动端效果图</title>",
+    "<title>FortiWiFi 30E Community Theme Mobile Showcase</title>": "<title>FortiWiFi 30E 社区主题移动端效果图</title>",
     "<h1>FortiGate Community Theme Mobile Experience</h1>": "<h1>FortiGate 社区主题移动端体验</h1>",
     "<p>Optimized, responsive, and elegant mobile interface for OpenWrt LuCI</p>": "<p>专为 OpenWrt LuCI 优化的响应式、优雅的移动端界面</p>",
     "Intuitive Navigation": "直观导航",

@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: luci-theme-fluent\n"
-"POT-Creation-Date: 2026-08-27 17:55-0300\n"
+"POT-Creation-Date: 2026-08-31 16:06-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: castillofrancodamian\n"
-"Language-Team: LuCI Theme Fluent\n"
+"Language-Team: FortiGate Community Theme\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -400,6 +400,9 @@ msgstr "Grande"
 msgid "Large (8px)"
 msgstr "Grande (8 píxeles)"
 
+msgid "License"
+msgstr ""
+
 msgid "Light mode"
 msgstr "Modo claro"
 
@@ -627,8 +630,8 @@ msgstr "Pequeño (2px)"
 msgid "Software Update"
 msgstr "Actualización de software"
 
-msgid "Source code"
-msgstr "Código fuente"
+msgid "Source and update repository"
+msgstr ""
 
 msgid "Square (0px)"
 msgstr "Cuadrado (0px)"
@@ -713,9 +716,6 @@ msgstr "La actualización falló"
 
 msgid "Upgrade Successful!"
 msgstr "¡Actualización exitosa!"
-
-msgid "Upstream project"
-msgstr ""
 
 msgid "Use custom select dropdowns"
 msgstr ""

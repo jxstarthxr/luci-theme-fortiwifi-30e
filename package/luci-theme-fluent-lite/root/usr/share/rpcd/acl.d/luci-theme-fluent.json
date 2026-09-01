@@ -1,6 +1,6 @@
 {
 	"luci-theme-fluent": {
-		"description": "Grant UCI and file access for luci-theme-fluent-lite config view",
+		"description": "Grant UCI and file access for the FortiGate community theme settings",
 		"read": {
 			"file": {
 				"/www/luci-static/fluent/background/*": [ "list" ]

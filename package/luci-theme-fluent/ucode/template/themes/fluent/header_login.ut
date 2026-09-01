@@ -1,5 +1,5 @@
 {#
-  Fluent Theme for LuCI - Login Page Header
+  FortiGate Community Theme for LuCI - Login Page Header
   Licensed to the public under the Apache License 2.0
 #}
 
@@ -68,13 +68,13 @@
 	<meta name="msapplication-TileColor" content="{{ bar_color }}">
 	<meta name="application-name" content="{{ hostname }} - LuCI">
 	<meta name="apple-mobile-web-app-title" content="{{ hostname }} - LuCI">
-	<link rel="apple-touch-icon" href="{{ media }}/icon/icon-192.png?v=@VERSION@">
-	<link rel="icon" type="image/png" sizes="192x192" href="{{ media }}/icon/icon-192.png?v=@VERSION@">
-	<link rel="icon" type="image/png" sizes="32x32" href="{{ media }}/icon/favicon-32.png?v=@VERSION@">
-	<link rel="icon" type="image/svg+xml" href="{{ media }}/img/fluent.svg?v=@VERSION@">
+	<link rel="apple-touch-icon" href="{{ media }}/icon/fortigate-community-192.png?v=@VERSION@">
+	<link rel="icon" type="image/png" sizes="192x192" href="{{ media }}/icon/fortigate-community-192.png?v=@VERSION@">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ media }}/icon/fortigate-community-32.png?v=@VERSION@">
+	<link rel="icon" type="image/svg+xml" href="{{ media }}/img/fortigate-community.svg?v=@VERSION@">
 	<link rel="manifest" href="{{ media }}/icon/manifest.json?v=@VERSION@" crossorigin="use-credentials">
 	<meta name="msapplication-TileColor" content="{{ bar_color }}">
-	<meta name="msapplication-TileImage" content="{{ media }}/icon/icon-192.png">
+	<meta name="msapplication-TileImage" content="{{ media }}/icon/fortigate-community-192.png?v=@VERSION@">
 
   {% if (mode === 'auto') { %}
 	<meta name="theme-color" content="{{ bar_color }}">

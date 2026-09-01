@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: luci-theme-fluent\n"
-"POT-Creation-Date: 2026-08-27 17:55-0300\n"
+"POT-Creation-Date: 2026-08-31 16:06-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -370,6 +370,9 @@ msgstr ""
 msgid "Large (8px)"
 msgstr ""
 
+msgid "License"
+msgstr ""
+
 msgid "Light mode"
 msgstr ""
 
@@ -585,7 +588,7 @@ msgstr ""
 msgid "Software Update"
 msgstr ""
 
-msgid "Source code"
+msgid "Source and update repository"
 msgstr ""
 
 msgid "Square (0px)"
@@ -662,9 +665,6 @@ msgid "Update failed"
 msgstr ""
 
 msgid "Upgrade Successful!"
-msgstr ""
-
-msgid "Upstream project"
 msgstr ""
 
 msgid "Use custom select dropdowns"

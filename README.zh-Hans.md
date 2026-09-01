@@ -1,17 +1,17 @@
 <div align="center">
-<img src="./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fluent.svg" alt="FortiWiFi 30E 社区主题图标" width="112" />
+<img src="./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fortigate-community.svg" alt="FortiWiFi 30E 社区主题图标" width="112" />
 
 # FortiWiFi 30E 社区主题
 
 为运行 OpenWrt 的 FortiWiFi 30E 制作的非官方 FortiGate 风格 LuCI 主题。
 </div>
 
-本分支基于 [`LazuliKao/luci-theme-fluent`](https://github.com/LazuliKao/luci-theme-fluent)。为了方便合并上游更新，软件包名、`fluent` UCI 配置命名空间和静态资源路径保持不变；用户界面则显示为 FortiGate 社区主题。
+为保持升级兼容性，内部软件包名、静态资源路径和 UCI 配置命名空间保持不变；所有用户界面品牌均显示为 FortiGate 社区主题。
 
 ## 主要定制
 
 - 默认浅色强调色为 FortiGate 橙色 `#f4511e`，深色模式使用更明亮的橙色。
-- 顶栏、登录页、应用图标和 favicon 使用原创的盾牌、网络与 Wi-Fi 图案。
+- 顶栏、登录页、应用图标和 favicon 统一使用简洁的原创橙色社区图标。
 - 登录动态背景采用橙红配色。
 - LuCI 设置页、状态面板、软件包说明和内置更新器均指向本分支。
 - GitHub Actions 每周创建上游同步 Pull Request，经过 CI 后再合并。

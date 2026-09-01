@@ -314,7 +314,7 @@ export function setupThemeFeatures() {
         );
         visibilityObserver.observe(ul);
       } catch (e) {
-        console.warn("Fluent theme: IntersectionObserver not supported", e);
+        console.warn("FortiGate community theme: IntersectionObserver not supported", e);
       }
     });
   }

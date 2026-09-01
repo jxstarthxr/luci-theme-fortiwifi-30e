@@ -74,7 +74,7 @@ const module: Module = {
       }
     } catch (e) {
       if (!rendered) {
-        console.error("Fluent menu: Failed to load menu data", e);
+        console.error("FortiGate community theme: Failed to load menu data", e);
       }
     }
   },

@@ -1,5 +1,5 @@
 <div align="center">
-<img src="./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fluent.svg" alt="FortiWiFi 30E community theme emblem" width="112" />
+<img src="./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fortigate-community.svg" alt="FortiWiFi 30E community theme emblem" width="112" />
 
 # FortiWiFi 30E Community Theme
 
@@ -11,12 +11,12 @@ An unofficial FortiGate-inspired LuCI theme for a FortiWiFi 30E running OpenWrt.
 
 </div>
 
-This fork keeps the stable internal package/config identifiers from [`LazuliKao/luci-theme-fluent`](https://github.com/LazuliKao/luci-theme-fluent). Keeping `luci-theme-fluent`, `/luci-static/fluent`, and the `fluent` UCI namespace avoids unnecessary upgrade conflicts while all user-facing branding is presented as the FortiGate community theme.
+The stable internal package name, static-resource path, and UCI namespace are retained for upgrade compatibility. All user-facing branding is presented as the FortiGate community theme.
 
 ## What is customized
 
 - FortiGate orange (`#f4511e`) is the default light accent; a brighter orange is used in dark mode.
-- Original shield, network, and Wi-Fi artwork is used for the header, login page, app icon, and favicons.
+- One simple original orange community emblem is used consistently for the header, login page, app icon, and favicons.
 - The login canvas uses a warm orange/red palette.
 - LuCI menu, settings, about page, dashboard, package descriptions, and web-app metadata use FortiGate community branding.
 - The built-in updater reads releases from this fork and verifies GitHub SHA-256 asset digests when available.
@@ -77,7 +77,7 @@ git push origin v1.0.10
 
 ## Keep the fork current
 
-The `Sync upstream` workflow runs every Monday and can also be started manually from the Actions tab. It merges `LazuliKao/luci-theme-fluent:main` into `automation/sync-upstream` and opens or refreshes a pull request. CI then tests the combined result before you merge it.
+The `Sync upstream` workflow runs every Monday and can also be started manually from the Actions tab. It merges the configured original repository's `main` branch into `automation/sync-upstream` and opens or refreshes a pull request. CI then tests the combined result before you merge it.
 
 For a local sync:
 
@@ -93,7 +93,7 @@ pnpm run lint
 git push origin main
 ```
 
-If upstream touches the same branding or updater lines, resolve the pull request manually and retain the fork repository URL, orange defaults, community artwork, and trademark disclaimer.
+If upstream touches the same branding or updater lines, resolve the pull request manually and retain the fork repository URL, orange defaults, community emblem, and trademark disclaimer.
 
 ## Development
 
@@ -111,7 +111,7 @@ Generated output is written under `package/luci-theme-fluent/htdocs/luci-static/
 
 ## Naming and trademark note
 
-This is an independent community theme and is not affiliated with or endorsed by Fortinet. It intentionally uses original emblem artwork rather than Fortinet's official logos. See [TRADEMARKS.md](./TRADEMARKS.md) before publishing branding changes.
+This is an independent community theme and is not affiliated with or endorsed by Fortinet. It uses a simple original orange “F” emblem rather than Fortinet's official logos. See [TRADEMARKS.md](./TRADEMARKS.md) before publishing branding changes.
 
 Fortinet, FortiGate, and FortiWiFi are trademarks of Fortinet, Inc. Microsoft Fluent remains the design-system/source attribution for the upstream codebase.
 

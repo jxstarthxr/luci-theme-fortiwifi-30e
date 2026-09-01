@@ -13,13 +13,13 @@ export default defineConfig({
     prompt: "src/script/translate.${locale}.md",
   },
   headers: {
-    languageTeam: "LuCI Theme Fluent",
+    languageTeam: "FortiGate Community Theme",
     lastTranslator: "TranslateGemma",
   },
   locales: [
     {
       locale: "zh_Hans",
-      headers: { lastTranslator: "LazuliKao" },
+      headers: { lastTranslator: "Community contributors" },
       po: "package/luci-theme-fluent/po/zh_Hans/fluent.po",
     },
     {
