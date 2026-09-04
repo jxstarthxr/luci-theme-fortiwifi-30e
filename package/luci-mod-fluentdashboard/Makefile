@@ -5,6 +5,7 @@ PKG_VERSION:=1.0.11
 PKG_RELEASE:=1
 PKG_LICENSE:=Apache-2.0
 PKG_MAINTAINER:=jxstarthxr
+PKG_SOURCE_URL:=https://github.com/jxstarthxr/luci-theme-fortiwifi-30e
 PKGARCH:=all
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 PKG_BUILD_DEPENDS:=iwinfo luci-base/host
@@ -18,6 +19,8 @@ define Package/$(PKG_NAME)
   TITLE:=FortiGate community dashboard for LuCI
   DEPENDS:=+luci-base +libiwinfo
   PKGARCH:=all
+  MAINTAINER:=$(PKG_MAINTAINER)
+  URL:=$(PKG_SOURCE_URL)
 endef
 
 define Package/$(PKG_NAME)/description

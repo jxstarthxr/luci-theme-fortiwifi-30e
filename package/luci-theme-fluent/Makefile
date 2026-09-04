@@ -4,6 +4,8 @@ PKG_NAME:=luci-theme-fluent
 PKG_VERSION:=1.0.11
 PKG_RELEASE:=1
 PKG_LICENSE:=Apache-2.0
+PKG_MAINTAINER:=jxstarthxr
+PKG_SOURCE_URL:=https://github.com/jxstarthxr/luci-theme-fortiwifi-30e
 
 LUCI_TITLE:=FortiGate Community Theme for LuCI
 LUCI_DEPENDS:=+luci-base

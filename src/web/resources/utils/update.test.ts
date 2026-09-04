@@ -44,7 +44,11 @@ test("shipped branding uses only the current community emblem", () => {
   const fullMakefile = fs.readFileSync("package/luci-theme-fluent/Makefile", "utf8");
   const liteMakefile = fs.readFileSync("package/luci-theme-fluent-lite/Makefile", "utf8");
   assert.doesNotMatch(fullMakefile, /define Build\/Prepare/);
+  assert.match(fullMakefile, /PKG_MAINTAINER:=jxstarthxr/);
+  assert.match(fullMakefile, /PKG_SOURCE_URL:=https:\/\/github\.com\/jxstarthxr\/luci-theme-fortiwifi-30e/);
   assert.match(liteMakefile, /PKGARCH:=all/);
+  assert.match(liteMakefile, /PKG_MAINTAINER:=jxstarthxr/);
+  assert.match(liteMakefile, /PKG_SOURCE_URL:=https:\/\/github\.com\/jxstarthxr\/luci-theme-fortiwifi-30e/);
   assert.match(liteMakefile, /usr\/share\/ucode\/luci\/template\/themes/);
 
   const aboutSource = fs.readFileSync("src/web/resources/view/fluent-config/tabs/about.tsx", "utf8");
