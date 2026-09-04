@@ -36,8 +36,16 @@ test("shipped branding uses only the current community emblem", () => {
   for (const template of ["header.ut", "header_login.ut", "sysauth.ut"]) {
     const contents = fs.readFileSync(`${templateRoot}/${template}`, "utf8");
     assert.match(contents, /fortigate-community/);
+    assert.match(contents, /{# PKG_VERSION #}/);
+    assert.doesNotMatch(contents, /@VERSION@/);
     assert.doesNotMatch(contents, /fluent\.svg|icon-192\.png|favicon-32\.png/);
   }
+
+  const fullMakefile = fs.readFileSync("package/luci-theme-fluent/Makefile", "utf8");
+  const liteMakefile = fs.readFileSync("package/luci-theme-fluent-lite/Makefile", "utf8");
+  assert.doesNotMatch(fullMakefile, /define Build\/Prepare/);
+  assert.match(liteMakefile, /PKGARCH:=all/);
+  assert.match(liteMakefile, /usr\/share\/ucode\/luci\/template\/themes/);
 
   const aboutSource = fs.readFileSync("src/web/resources/view/fluent-config/tabs/about.tsx", "utf8");
   const builtSettings = fs.readFileSync("package/luci-theme-fluent/htdocs/luci-static/resources/view/fluent-config.js", "utf8");

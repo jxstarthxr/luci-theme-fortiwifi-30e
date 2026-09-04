@@ -17,6 +17,7 @@ define Package/$(PKG_NAME)
   SUBMENU:=2. Modules
   TITLE:=FortiGate community dashboard for LuCI
   DEPENDS:=+luci-base +libiwinfo
+  PKGARCH:=all
 endef
 
 define Package/$(PKG_NAME)/description

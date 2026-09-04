@@ -15,6 +15,7 @@ define Package/$(PKG_NAME)
   TITLE:=FortiGate Community Theme for LuCI (lite)
   DEPENDS:=+luci-base
   CONFLICTS:=luci-theme-fluent
+  PKGARCH:=all
 endef
 
 define Package/$(PKG_NAME)/description
@@ -29,9 +30,9 @@ define Build/Prepare
 	$(CP) $(TOPDIR)/package/luci-theme-fluent-lite/htdocs/luci-static/fluent/css/fluent.css $(PKG_BUILD_DIR)/htdocs/luci-static/fluent/css/
 	$(CP) $(TOPDIR)/package/luci-theme-fluent-lite/htdocs/luci-static/resources/* $(PKG_BUILD_DIR)/htdocs/luci-static/resources/
 	$(CP) $(TOPDIR)/package/luci-theme-fluent-lite/root/* $(PKG_BUILD_DIR)/root/
-	$(SED) 's/@VERSION@/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/header.ut
-	$(SED) 's/@VERSION@/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/header_login.ut
-	$(SED) 's/@VERSION@/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/sysauth.ut
+	$(SED) 's/{# PKG_VERSION #}/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/header.ut
+	$(SED) 's/{# PKG_VERSION #}/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/header_login.ut
+	$(SED) 's/{# PKG_VERSION #}/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/sysauth.ut
 endef
 
 define Build/Compile
@@ -39,9 +40,9 @@ endef
 
 define Package/$(PKG_NAME)/install
 	$(CP) $(PKG_BUILD_DIR)/root/* $(1)/
-	$(INSTALL_DIR) $(1)/www $(1)/usr/share/ucode/template/themes
+	$(INSTALL_DIR) $(1)/www $(1)/usr/share/ucode/luci/template/themes
 	$(CP) $(PKG_BUILD_DIR)/htdocs/luci-static $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/ucode/template/themes/fluent $(1)/usr/share/ucode/template/themes/
+	$(CP) $(PKG_BUILD_DIR)/ucode/template/themes/fluent $(1)/usr/share/ucode/luci/template/themes/
 endef
 
 define Package/$(PKG_NAME)/conffiles

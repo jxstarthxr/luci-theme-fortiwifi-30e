@@ -6,7 +6,7 @@ import { callCheckDownload, callCheckInstall, callDoInstall, callGetInstallLog, 
 const CBIAboutManager = form.DummyValue.extend({
   renderWidget: (_section_id: string, _option_index: number, _cfgvalue: string) => {
     // Current details from RPCD
-    let currentVersion = "1.0.1";
+    let currentVersion = "0";
     let pkgType: "ipk" | "apk" = "ipk";
     let installedI18n: string[] = [];
 

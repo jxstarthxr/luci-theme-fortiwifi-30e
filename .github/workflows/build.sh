@@ -118,6 +118,34 @@ else
     "package/${PACKAGE}/compile"
 fi
 
+# Audit the staged package payload shared by both the IPK and APK builders.
+# This catches source-tree fixes that fail to reach the actual router package.
+echo ">>> Auditing staged package payload..."
+PACKAGE_ROOT=$(find build_dir -type d -path "*/${PACKAGE}/.pkgdir/${PACKAGE}" -print -quit)
+if [ -z "${PACKAGE_ROOT}" ] || [ ! -d "${PACKAGE_ROOT}" ]; then
+  echo "ERROR: Could not locate staged payload for ${PACKAGE}" >&2
+  exit 1
+fi
+TEMPLATE_ROOT="${PACKAGE_ROOT}/usr/share/ucode/luci/template/themes/fluent"
+EXPECTED_VERSION=$(sed -n 's/^PKG_VERSION:=//p' "package/${PACKAGE}/Makefile")
+test -d "${TEMPLATE_ROOT}"
+test -f "${PACKAGE_ROOT}/www/luci-static/fluent/img/fortigate-community.svg"
+test -f "${PACKAGE_ROOT}/www/luci-static/fluent/icon/fortigate-community-32.png"
+test -f "${PACKAGE_ROOT}/www/luci-static/fluent/icon/fortigate-community-192.png"
+grep -R -q -F "?v=${EXPECTED_VERSION}" "${TEMPLATE_ROOT}"
+if grep -R -I -n -e '@VERSION@' -e '{# PKG_VERSION #}' "${PACKAGE_ROOT}"; then
+  echo "ERROR: Unresolved package-version token found in staged payload" >&2
+  exit 1
+fi
+if grep -R -I -i -n -e 'LazuliKao' -e 'fluent.svg' -e 'favicon-32.png' -e 'icon-192.png' "${PACKAGE_ROOT}"; then
+  echo "ERROR: Legacy author or branding reference found in staged payload" >&2
+  exit 1
+fi
+if [ "${VARIANT}" = "full" ]; then
+  grep -q -F 'jxstarthxr/luci-theme-fortiwifi-30e' "${PACKAGE_ROOT}/www/luci-static/resources/view/fluent-config.js"
+  grep -q -F 'github.com/jxstarthxr/luci-theme-fortiwifi-30e/releases/download/' "${PACKAGE_ROOT}/usr/libexec/rpcd/luci.fluent"
+fi
+
 # Collect the selected package. Full builds also own the shared translations.
 echo ">>> Collecting ${PKG_EXT} files..."
 mkdir -p "${OUTPUT_DIR}"
@@ -130,6 +158,10 @@ if ! find "${OUTPUT_DIR}" -maxdepth 1 -name "${PACKAGE}*.${PKG_EXT}" -print -qui
   echo "ERROR: ${PACKAGE} .${PKG_EXT} was not produced" >&2
   exit 1
 fi
+if [ "${PKG_EXT}" = "ipk" ] && ! find "${OUTPUT_DIR}" -maxdepth 1 -name "${PACKAGE}_*_all.ipk" -print -quit | grep -q .; then
+  echo "ERROR: ${PACKAGE} IPK is not architecture-independent" >&2
+  exit 1
+fi
 if [ "${VARIANT}" = "full" ]; then
   if ! find "${OUTPUT_DIR}" -maxdepth 1 -name "luci-mod-fluentdashboard*.${PKG_EXT}" -print -quit | grep -q .; then
     echo "ERROR: luci-mod-fluentdashboard .${PKG_EXT} was not produced" >&2
@@ -137,6 +169,10 @@ if [ "${VARIANT}" = "full" ]; then
   fi
   if ! find "${OUTPUT_DIR}" -maxdepth 1 -name "luci-i18n-fluentdashboard-zh-cn*.${PKG_EXT}" -print -quit | grep -q .; then
     echo "ERROR: luci-i18n-fluentdashboard-zh-cn .${PKG_EXT} was not produced" >&2
+    exit 1
+  fi
+  if [ "${PKG_EXT}" = "ipk" ] && ! find "${OUTPUT_DIR}" -maxdepth 1 -name "luci-mod-fluentdashboard_*_all.ipk" -print -quit | grep -q .; then
+    echo "ERROR: luci-mod-fluentdashboard IPK is not architecture-independent" >&2
     exit 1
   fi
 fi

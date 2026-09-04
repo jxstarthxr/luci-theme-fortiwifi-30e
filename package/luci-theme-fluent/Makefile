@@ -9,13 +9,6 @@ LUCI_TITLE:=FortiGate Community Theme for LuCI
 LUCI_DEPENDS:=+luci-base
 LUCI_MINIFY_CSS:=0
 
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	$(SED) 's/@VERSION@/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/header.ut
-	$(SED) 's/@VERSION@/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/header_login.ut
-	$(SED) 's/@VERSION@/$(PKG_VERSION)/g' $(PKG_BUILD_DIR)/ucode/template/themes/fluent/sysauth.ut
-endef
-
 define Package/$(PKG_NAME)/conffiles
 /etc/config/fluent
 endef
