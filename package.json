@@ -1,6 +1,6 @@
 {
   "name": "luci-theme-fluent",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "type": "module",
   "description": "Unofficial FortiGate community theme for OpenWrt LuCI",
   "scripts": {
