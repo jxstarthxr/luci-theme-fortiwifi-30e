@@ -4,7 +4,7 @@ import path from "node:path";
 import sharp from "sharp";
 
 // Use relative paths from the repository root
-const svgPath = "./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fortigate-community.svg";
+const svgPath = "./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fortinet-logomark-red.svg";
 const iconDir = "./package/luci-theme-fluent/htdocs/luci-static/fluent/icon";
 const themeDir = "./package/luci-theme-fluent/htdocs/luci-static/fluent";
 
@@ -14,11 +14,27 @@ interface Target {
 }
 
 const targets: Target[] = [
-  { file: "fortigate-community-192.png", size: 192 },
-  { file: "fortigate-community-32.png", size: 32 },
+  { file: "fortinet-logomark-red-192.png", size: 192 },
+  { file: "fortinet-logomark-red-32.png", size: 32 },
 ];
 
-const keepFiles = new Set<string>(["manifest.json", "favicon.ico", "fortigate-community-192.png", "fortigate-community-32.png"]);
+const keepFiles = new Set<string>(["manifest.json", "favicon.ico", ...targets.map(({ file }) => file)]);
+
+function wrapPngAsIco(png: Buffer, size: number): Buffer {
+  const header = Buffer.alloc(22);
+  header.writeUInt16LE(0, 0); // Reserved
+  header.writeUInt16LE(1, 2); // ICO image
+  header.writeUInt16LE(1, 4); // One image
+  header.writeUInt8(size >= 256 ? 0 : size, 6);
+  header.writeUInt8(size >= 256 ? 0 : size, 7);
+  header.writeUInt8(0, 8); // No palette
+  header.writeUInt8(0, 9); // Reserved
+  header.writeUInt16LE(1, 10); // Color planes
+  header.writeUInt16LE(32, 12); // Bits per pixel
+  header.writeUInt32LE(png.length, 14);
+  header.writeUInt32LE(header.length, 18);
+  return Buffer.concat([header, png]);
+}
 
 async function generate(): Promise<void> {
   // Check if source SVG exists
@@ -39,7 +55,10 @@ async function generate(): Promise<void> {
     const dest = path.join(iconDir, target.file);
     console.log(`Generating ${target.file} (${target.size}x${target.size})...`);
     await sharp(svgBuffer)
-      .resize(target.size, target.size)
+      .resize(target.size, target.size, {
+        fit: "contain",
+        background: { r: 0, g: 0, b: 0, alpha: 0 },
+      })
       .png({
         palette: true,
         compressionLevel: 9,
@@ -49,29 +68,26 @@ async function generate(): Promise<void> {
       .toFile(dest);
   }
 
-  // Generate favicon.ico at themeDir root (32x32 compressed PNG)
-  console.log("Generating favicon.ico in root...");
-  await sharp(svgBuffer)
-    .resize(32, 32)
+  // Generate a real ICO container containing an optimized 32x32 PNG.
+  const faviconPng = await sharp(svgBuffer)
+    .resize(32, 32, {
+      fit: "contain",
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    })
     .png({
       palette: true,
       compressionLevel: 9,
       quality: 85,
       effort: 10,
     })
-    .toFile(path.join(themeDir, "favicon.ico"));
+    .toBuffer();
+  const faviconIco = wrapPngAsIco(faviconPng, 32);
 
-  // Generate favicon.ico inside icon directory
+  console.log("Generating favicon.ico in root...");
+  fs.writeFileSync(path.join(themeDir, "favicon.ico"), faviconIco);
+
   console.log("Generating favicon.ico in icon directory...");
-  await sharp(svgBuffer)
-    .resize(32, 32)
-    .png({
-      palette: true,
-      compressionLevel: 9,
-      quality: 85,
-      effort: 10,
-    })
-    .toFile(path.join(iconDir, "favicon.ico"));
+  fs.writeFileSync(path.join(iconDir, "favicon.ico"), faviconIco);
 
   // Clean up all other files in the icon directory
   const files = fs.readdirSync(iconDir);

@@ -1,5 +1,5 @@
 <div align="center">
-<img src="./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fortigate-community.svg" alt="FortiWiFi 30E community theme emblem" width="112" />
+<img src="./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fortinet-logomark-red.svg" alt="Fortinet logomark" width="112" />
 
 # FortiWiFi 30E Community Theme
 
@@ -16,7 +16,7 @@ The stable internal package name, static-resource path, and UCI namespace are re
 ## What is customized
 
 - FortiGate orange (`#f4511e`) is the default light accent; a brighter orange is used in dark mode.
-- One simple original orange community emblem is used consistently for the header, login page, app icon, and favicons.
+- The supplied red Fortinet logomark is used consistently for the header, login page, app icon, and favicons.
 - The login canvas uses a warm orange/red palette.
 - LuCI menu, settings, about page, dashboard, package descriptions, and web-app metadata use FortiGate community branding.
 - The built-in updater reads releases from this fork and verifies GitHub SHA-256 asset digests when available.
@@ -93,7 +93,7 @@ pnpm run lint
 git push origin main
 ```
 
-If upstream touches the same branding or updater lines, resolve the pull request manually and retain the fork repository URL, orange defaults, community emblem, and trademark disclaimer.
+If upstream touches the same branding or updater lines, resolve the pull request manually and retain the fork repository URL, orange defaults, supplied Fortinet logomark, and trademark disclaimer.
 
 ## Development
 
@@ -111,7 +111,7 @@ Generated output is written under `package/luci-theme-fluent/htdocs/luci-static/
 
 ## Naming and trademark note
 
-This is an independent community theme and is not affiliated with or endorsed by Fortinet. It uses a simple original orange “F” emblem rather than Fortinet's official logos. See [TRADEMARKS.md](./TRADEMARKS.md) before publishing branding changes.
+This is an independent community theme and is not affiliated with or endorsed by Fortinet. It uses a Fortinet logomark supplied by the repository owner. See [TRADEMARKS.md](./TRADEMARKS.md) before publishing or redistributing branded builds.
 
 Fortinet, FortiGate, and FortiWiFi are trademarks of Fortinet, Inc. Microsoft Fluent remains the design-system/source attribution for the upstream codebase.
 

@@ -23,22 +23,35 @@ test("updater repository is pinned to this fork", () => {
   assert.doesNotMatch(installer, /REPO="LazuliKao\//i);
 });
 
-test("shipped branding uses only the current community emblem", () => {
+test("shipped branding uses only the supplied Fortinet logomark", () => {
   const mediaRoot = "package/luci-theme-fluent/htdocs/luci-static/fluent";
   const templateRoot = "package/luci-theme-fluent/ucode/template/themes/fluent";
-  assert.equal(fs.existsSync(`${mediaRoot}/img/fortigate-community.svg`), true);
+  assert.equal(fs.existsSync(`${mediaRoot}/img/fortinet-logomark-red.svg`), true);
+  assert.equal(fs.existsSync(`${mediaRoot}/img/fortigate-community.svg`), false);
   assert.equal(fs.existsSync(`${mediaRoot}/img/fluent.svg`), false);
-  assert.equal(fs.existsSync(`${mediaRoot}/icon/fortigate-community-192.png`), true);
-  assert.equal(fs.existsSync(`${mediaRoot}/icon/fortigate-community-32.png`), true);
+  assert.equal(fs.existsSync(`${mediaRoot}/icon/fortinet-logomark-red-192.png`), true);
+  assert.equal(fs.existsSync(`${mediaRoot}/icon/fortinet-logomark-red-32.png`), true);
+  assert.equal(fs.existsSync(`${mediaRoot}/icon/fortigate-community-192.png`), false);
+  assert.equal(fs.existsSync(`${mediaRoot}/icon/fortigate-community-32.png`), false);
   assert.equal(fs.existsSync(`${mediaRoot}/icon/icon-192.png`), false);
   assert.equal(fs.existsSync(`${mediaRoot}/icon/favicon-32.png`), false);
 
+  const logo = fs.readFileSync(`${mediaRoot}/img/fortinet-logomark-red.svg`, "utf8");
+  assert.match(logo, /viewBox="50 45 83 70"/);
+  assert.match(logo, /fill="#DA291C"/);
+  assert.doesNotMatch(logo, /<circle|shield|fortigate-community/i);
+
+  for (const favicon of [`${mediaRoot}/favicon.ico`, `${mediaRoot}/icon/favicon.ico`]) {
+    const contents = fs.readFileSync(favicon);
+    assert.deepEqual([...contents.subarray(0, 6)], [0, 0, 1, 0, 1, 0]);
+  }
+
   for (const template of ["header.ut", "header_login.ut", "sysauth.ut"]) {
     const contents = fs.readFileSync(`${templateRoot}/${template}`, "utf8");
-    assert.match(contents, /fortigate-community/);
+    assert.match(contents, /fortinet-logomark-red/);
     assert.match(contents, /{# PKG_VERSION #}/);
     assert.doesNotMatch(contents, /@VERSION@/);
-    assert.doesNotMatch(contents, /fluent\.svg|icon-192\.png|favicon-32\.png/);
+    assert.doesNotMatch(contents, /fortigate-community|fluent\.svg|icon-192\.png|favicon-32\.png/);
   }
 
   const fullMakefile = fs.readFileSync("package/luci-theme-fluent/Makefile", "utf8");

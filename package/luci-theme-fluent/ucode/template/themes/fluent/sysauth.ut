@@ -346,7 +346,7 @@
           </svg>
         </button>
         <a class="brand" href="/">
-          <img src="{{ media }}/img/fortigate-community.svg?v={# PKG_VERSION #}" class="icon" />
+          <img src="{{ media }}/img/fortinet-logomark-red.svg?v={# PKG_VERSION #}" class="icon" alt="Fortinet" />
           <span class="brand-text">{{ hostname }}</span>
         </a>
       </div>

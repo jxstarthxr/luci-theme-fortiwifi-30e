@@ -13,7 +13,7 @@ const CBIAboutManager = form.DummyValue.extend({
     // UI state elements
     const logoEl = (
       <div class="fluent-about-logo">
-        <img src={`${L.media()}/img/fortigate-community.svg?v=community-1`} alt="FortiGate Community Theme emblem" />
+        <img src={`${L.media()}/img/fortinet-logomark-red.svg?v=fortinet-1`} alt="Fortinet logomark" />
         <h2>FortiGate Community Theme</h2>
         <p class="fluent-about-subtitle">{_("Unofficial FortiWiFi 30E community theme for LuCI")}</p>
         <p class="fluent-about-subtitle">{_("Not affiliated with or endorsed by Fortinet. Fortinet, FortiGate, and FortiWiFi are trademarks of Fortinet, Inc.")}</p>

@@ -68,13 +68,13 @@
 	<meta name="msapplication-TileColor" content="{{ bar_color }}">
 	<meta name="application-name" content="{{ hostname }} - LuCI">
 	<meta name="apple-mobile-web-app-title" content="{{ hostname }} - LuCI">
-	<link rel="apple-touch-icon" href="{{ media }}/icon/fortigate-community-192.png?v={# PKG_VERSION #}">
-	<link rel="icon" type="image/png" sizes="192x192" href="{{ media }}/icon/fortigate-community-192.png?v={# PKG_VERSION #}">
-	<link rel="icon" type="image/png" sizes="32x32" href="{{ media }}/icon/fortigate-community-32.png?v={# PKG_VERSION #}">
-	<link rel="icon" type="image/svg+xml" href="{{ media }}/img/fortigate-community.svg?v={# PKG_VERSION #}">
+	<link rel="apple-touch-icon" href="{{ media }}/icon/fortinet-logomark-red-192.png?v={# PKG_VERSION #}">
+	<link rel="icon" type="image/png" sizes="192x192" href="{{ media }}/icon/fortinet-logomark-red-192.png?v={# PKG_VERSION #}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ media }}/icon/fortinet-logomark-red-32.png?v={# PKG_VERSION #}">
+	<link rel="icon" type="image/svg+xml" href="{{ media }}/img/fortinet-logomark-red.svg?v={# PKG_VERSION #}">
 	<link rel="manifest" href="{{ media }}/icon/manifest.json?v={# PKG_VERSION #}" crossorigin="use-credentials">
 	<meta name="msapplication-TileColor" content="{{ bar_color }}">
-	<meta name="msapplication-TileImage" content="{{ media }}/icon/fortigate-community-192.png?v={# PKG_VERSION #}">
+	<meta name="msapplication-TileImage" content="{{ media }}/icon/fortinet-logomark-red-192.png?v={# PKG_VERSION #}">
 
   {% if (mode === 'auto') { %}
 	<meta name="theme-color" content="{{ bar_color }}">
@@ -119,7 +119,7 @@
 		{% } %}
 	</style>
 
-	<link rel="shortcut icon" type="image/ico" href="{{ media }}/favicon.ico?v={# PKG_VERSION #}">
+	<link rel="shortcut icon" type="image/x-icon" href="{{ media }}/favicon.ico?v={# PKG_VERSION #}">
 	<script src="{{ resource }}/luci.js?v={{ version.luciversion }}"></script>
 	<script src="{{ resource }}/cbi.js?v={{ version.luciversion }}"></script>
 </head>

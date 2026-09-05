@@ -129,15 +129,15 @@ fi
 TEMPLATE_ROOT="${PACKAGE_ROOT}/usr/share/ucode/luci/template/themes/fluent"
 EXPECTED_VERSION=$(sed -n 's/^PKG_VERSION:=//p' "package/${PACKAGE}/Makefile")
 test -d "${TEMPLATE_ROOT}"
-test -f "${PACKAGE_ROOT}/www/luci-static/fluent/img/fortigate-community.svg"
-test -f "${PACKAGE_ROOT}/www/luci-static/fluent/icon/fortigate-community-32.png"
-test -f "${PACKAGE_ROOT}/www/luci-static/fluent/icon/fortigate-community-192.png"
+test -f "${PACKAGE_ROOT}/www/luci-static/fluent/img/fortinet-logomark-red.svg"
+test -f "${PACKAGE_ROOT}/www/luci-static/fluent/icon/fortinet-logomark-red-32.png"
+test -f "${PACKAGE_ROOT}/www/luci-static/fluent/icon/fortinet-logomark-red-192.png"
 grep -R -q -F "?v=${EXPECTED_VERSION}" "${TEMPLATE_ROOT}"
 if grep -R -I -n -e '@VERSION@' -e '{# PKG_VERSION #}' "${PACKAGE_ROOT}"; then
   echo "ERROR: Unresolved package-version token found in staged payload" >&2
   exit 1
 fi
-if grep -R -I -i -n -e 'LazuliKao' -e 'fluent.svg' -e 'favicon-32.png' -e 'icon-192.png' "${PACKAGE_ROOT}"; then
+if grep -R -I -i -n -e 'LazuliKao' -e 'fortigate-community' -e 'fluent.svg' -e 'favicon-32.png' -e 'icon-192.png' "${PACKAGE_ROOT}"; then
   echo "ERROR: Legacy author or branding reference found in staged payload" >&2
   exit 1
 fi

@@ -3,7 +3,7 @@
   "short_name": "FortiGate",
   "icons": [
     {
-      "src": "/luci-static/fluent/icon/fortigate-community-192.png",
+      "src": "/luci-static/fluent/icon/fortinet-logomark-red-192.png",
       "sizes": "192x192",
       "type": "image/png"
     }

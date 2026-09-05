@@ -1,5 +1,5 @@
 <div align="center">
-<img src="./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fortigate-community.svg" alt="FortiWiFi 30E 社区主题图标" width="112" />
+<img src="./package/luci-theme-fluent/htdocs/luci-static/fluent/img/fortinet-logomark-red.svg" alt="Fortinet 标志" width="112" />
 
 # FortiWiFi 30E 社区主题
 
@@ -11,7 +11,7 @@
 ## 主要定制
 
 - 默认浅色强调色为 FortiGate 橙色 `#f4511e`，深色模式使用更明亮的橙色。
-- 顶栏、登录页、应用图标和 favicon 统一使用简洁的原创橙色社区图标。
+- 顶栏、登录页、应用图标和 favicon 统一使用仓库所有者提供的红色 Fortinet 标志。
 - 登录动态背景采用橙红配色。
 - LuCI 设置页、状态面板、软件包说明和内置更新器均指向本分支。
 - GitHub Actions 每周创建上游同步 Pull Request，经过 CI 后再合并。
@@ -40,10 +40,10 @@ OpenWrt 24.10 使用 `.ipk`，OpenWrt 25.12 使用 `.apk`。完整版本包含�
 
 ## 上游同步
 
-`Sync upstream` 工作流每周一运行，也可以在 Actions 页面手动运行。它会把上游 `main` 合并到 `automation/sync-upstream` 分支，并创建或更新 Pull Request。若同一处定制发生冲突，需要手动保留本分支的仓库地址、橙色默认值、原创图标和商标声明。
+`Sync upstream` 工作流每周一运行，也可以在 Actions 页面手动运行。它会把上游 `main` 合并到 `automation/sync-upstream` 分支，并创建或更新 Pull Request。若同一处定制发生冲突，需要手动保留本分支的仓库地址、橙色默认值、Fortinet 标志和商标声明。
 
 ## 商标说明
 
-这是独立社区项目，与 Fortinet 没有关联，也未获得 Fortinet 赞助或认可。项目不包含 Fortinet 官方 logo，而使用原创图标。详情请阅读 [TRADEMARKS.md](./TRADEMARKS.md)。
+这是独立社区项目，与 Fortinet 没有关联，也未获得 Fortinet 赞助或认可。项目使用仓库所有者提供的 Fortinet 标志；发布或再分发前请阅读 [TRADEMARKS.md](./TRADEMARKS.md)。
 
 Fortinet、FortiGate 和 FortiWiFi 是 Fortinet, Inc. 的商标。代码按照 [Apache-2.0](./LICENSE) 许可证发布。

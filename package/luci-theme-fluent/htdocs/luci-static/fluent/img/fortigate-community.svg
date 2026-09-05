@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
-  <title id="title">FortiWiFi 30E Community Theme</title>
-  <desc id="description">A simple original orange circle with a white geometric letter F.</desc>
-  <circle cx="256" cy="256" r="224" fill="#f4511e" />
-  <path
-    d="M172 142h190v58H234v58h108v58H234v82h-62V142Z"
-    fill="#fff"
-  />
-</svg>

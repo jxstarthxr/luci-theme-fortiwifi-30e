@@ -42,8 +42,8 @@ luci-theme-fluent/
 │       │   ├── fluent/css/fluent.css       # Compiled CSS (NOT committed? check .gitignore)
 │       │   ├── fluent/background/          # User-uploaded backgrounds
 │       │   ├── fluent/fonts/               # Empty directory
-│       │   ├── fluent/icon/                # generated community favicon/app icons and manifest.json
-│       │   ├── fluent/img/fortigate-community.svg # Community theme emblem
+│       │   ├── fluent/icon/                # generated Fortinet favicon/app icons and manifest.json
+│       │   ├── fluent/img/fortinet-logomark-red.svg # Supplied Fortinet logomark
 │       │   └── resources/                  # Compiled JS: menu-fluent.js, view/fluent-config.js
 │       ├── ucode/template/themes/fluent/   # 6 ucode templates (header.ut, footer.ut, header_login.ut, footer_login.ut, out_header_login.ut, sysauth.ut)
 │       ├── root/
